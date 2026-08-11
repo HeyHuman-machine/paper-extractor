@@ -1,0 +1,30 @@
+# Python 缓存与虚拟环境
+__pycache__/
+*.py[cod]
+*.pyd
+.venv/
+.pytest_cache/
+
+# 本地配置和密钥
+.env
+.streamlit/secrets.toml
+
+# 运行时数据
+storage/*.db
+storage/*.db-*
+data/inbox/*
+data/output/*
+logs/*.log
+
+# 保留空目录的占位文件
+!storage/.gitkeep
+!data/inbox/.gitkeep
+!data/output/.gitkeep
+!logs/.gitkeep
+
+# 编辑器和系统文件
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
