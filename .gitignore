@@ -4,6 +4,7 @@ __pycache__/
 *.pyd
 .venv/
 .pytest_cache/
+.pytest-tmp/
 
 # 本地配置和密钥
 .env
@@ -27,4 +28,3 @@ logs/*.log
 .vscode/
 .DS_Store
 Thumbs.db
-

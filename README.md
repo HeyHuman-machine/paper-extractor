@@ -13,7 +13,7 @@ Streamlit 和可量化评测。
 ## 当前进度
 
 - [x] M0：环境与项目骨架
-- [ ] M1：PDF / DOCX 文档解析
+- [x] M1：PDF / DOCX 文档解析
 - [ ] M2：LLM 客户端与 Prompt
 - [ ] M3：三级容错抽取器
 - [ ] M4：批量调度
@@ -23,7 +23,7 @@ Streamlit 和可量化评测。
 - [ ] M8：Streamlit
 - [ ] M9：准确率评测
 
-当前只完成 M0，不包含尚未验收模块的业务实现。
+当前已完成 M0～M1，不包含尚未验收模块的业务实现。
 
 ## Windows 快速开始
 
@@ -43,6 +43,18 @@ Python version: 3.11.x
 
 详细解释见 [`docs/notes/M0_环境与骨架.md`](docs/notes/M0_环境与骨架.md)。
 
+## 检查论文解析结果
+
+把电子版 PDF 或 DOCX 放入 `data/inbox`，然后执行：
+
+```powershell
+uv run python scripts/inspect_documents.py
+```
+
+也可以在命令末尾传入一个或多个文件路径。M1 会输出格式、页数、字符数和
+前 500 字；加密、损坏、格式不支持或疑似扫描件都会得到明确错误信息。
+详细解释见 [`docs/notes/M1_文档解析.md`](docs/notes/M1_文档解析.md)。
+
 ## 11 个目标字段
 
 1. `title`
@@ -57,7 +69,7 @@ Python version: 3.11.x
 10. `limitations`
 11. `summary`
 
-正式 Schema 将在 M1 的 `app/models.py` 中实现，并在后续由 LLM 输出校验、
+正式 Schema 已在 M1 的 `app/models.py` 中实现，后续会由 LLM 输出校验、
 FastAPI 响应模型和评测脚本共同复用。
 
 ## 主动做出的设计取舍
@@ -76,4 +88,3 @@ FastAPI 响应模型和评测脚本共同复用。
 - 不要把真实 API Key 写入 `.env.example`。
 - 本地 `.env` 已被 `.gitignore` 忽略。
 - 用户上传的论文、数据库和日志不会提交到 Git。
-

@@ -19,10 +19,9 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "pytest>=8.0",
+    "pytest>=8.0,<9",
 ]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra"
-
+addopts = "-ra --basetemp=.pytest-tmp"
