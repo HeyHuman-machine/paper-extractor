@@ -15,7 +15,7 @@ Streamlit 和可量化评测。
 - [x] M0：环境与项目骨架
 - [x] M1：PDF / DOCX 文档解析
 - [x] M2：LLM 客户端与 Prompt
-- [ ] M3：三级容错抽取器
+- [x] M3：三级容错抽取器
 - [ ] M4：批量调度
 - [ ] M5：SQLite 持久化
 - [ ] M6：Excel / JSON 导出
@@ -23,7 +23,7 @@ Streamlit 和可量化评测。
 - [ ] M8：Streamlit
 - [ ] M9：准确率评测
 
-当前已完成 M0～M2，不包含尚未验收模块的业务实现。
+当前已完成 M0～M3，不包含尚未验收模块的业务实现。
 
 ## Windows 快速开始
 
@@ -66,6 +66,24 @@ uv run python scripts/check_llm.py
 该脚本只发送内置的虚构论文短文本，不会读取 `data/inbox`。它会打印模型名、
 token 用量、耗时、重试次数和通过 Pydantic 校验的 11 字段结果。详细解释见
 [`docs/notes/M2_LLM客户端与Prompt.md`](docs/notes/M2_LLM客户端与Prompt.md)。
+
+## 检查三级容错抽取
+
+先运行完全本地的失败修正演示，不访问 DeepSeek、不产生费用：
+
+```powershell
+uv run python scripts/demo_m3_retries.py
+```
+
+再运行真实 M3 调用（只发送内置虚构短文本，会产生少量 token 费用）：
+
+```powershell
+uv run python scripts/check_extractor.py
+```
+
+M3 会清洗 JSON、使用 Pydantic 校验 11 个字段、把具体错误反馈给模型并重试；
+重试耗尽后返回失败诊断，不让异常中断后续批处理。详细解释见
+[`docs/notes/M3_三级容错抽取器.md`](docs/notes/M3_三级容错抽取器.md)。
 
 ## 11 个目标字段
 

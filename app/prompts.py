@@ -71,3 +71,27 @@ def build_extraction_messages(paper_text: str) -> list[dict[str, str]]:
             "content": f"请从下面的论文文本中抽取 JSON：\n\n{cleaned_text}",
         },
     ]
+
+
+def append_repair_message(
+    messages: list[dict[str, str]],
+    raw_output: str,
+    stage: str,
+    error_message: str,
+) -> list[dict[str, str]]:
+    """把上次原始输出和具体错误加入对话，要求模型只修正 JSON。
+
+    返回新列表，不修改调用方保存的原消息，便于测试和失败诊断。
+    """
+
+    repair_prompt = f"""你上次返回的 JSON 未通过检查。
+失败阶段：{stage}
+具体错误：{error_message}
+
+请根据最初提供的论文文本修正错误，并重新输出完整的 11 字段 JSON 对象。
+只返回修正后的合法 JSON，不要解释，不要省略任何字段，也不要编造论文中没有的信息。"""
+    return [
+        *messages,
+        {"role": "assistant", "content": raw_output},
+        {"role": "user", "content": repair_prompt},
+    ]

@@ -8,7 +8,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 class DocumentType(str, Enum):
@@ -92,3 +92,57 @@ class LLMResponse(BaseModel):
     total_tokens: int = Field(default=0, ge=0)
     latency_ms: int = Field(ge=0, description="包含重试等待在内的总耗时")
     retry_count: int = Field(default=0, ge=0)
+
+
+class ExtractionStage(str, Enum):
+    """抽取流程中可诊断的处理阶段。"""
+
+    INPUT = "input"
+    API_ERROR = "api_error"
+    JSON_PARSE = "json_parse"
+    SCHEMA_VALIDATE = "schema_validate"
+    SUCCESS = "success"
+
+
+class ExtractionAttempt(BaseModel):
+    """一次模型调用的原始输出、指标和校验结果。"""
+
+    attempt_number: int = Field(ge=1)
+    stage: ExtractionStage
+    raw_output: str | None = None
+    error_type: str | None = None
+    error_msg: str | None = None
+    tokens: int = Field(default=0, ge=0)
+    latency_ms: int = Field(default=0, ge=0)
+    transport_retry_count: int = Field(default=0, ge=0)
+
+
+class ExtractionFailure(BaseModel):
+    """重试耗尽或 API 失败后的最终诊断信息。"""
+
+    stage: ExtractionStage
+    error_type: str
+    error_msg: str
+    raw_llm_output: str | None = None
+
+
+class ExtractionResult(BaseModel):
+    """M3 的统一返回值：失败也作为数据返回，不中断后续批处理。"""
+
+    success: bool
+    record: PaperRecord | None = None
+    failure: ExtractionFailure | None = None
+    retry_count: int = Field(default=0, ge=0)
+    total_tokens: int = Field(default=0, ge=0)
+    total_latency_ms: int = Field(default=0, ge=0)
+    attempts: list[ExtractionAttempt] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def require_matching_payload(self) -> "ExtractionResult":
+        """成功时必须有论文记录，失败时必须有失败诊断。"""
+
+        if self.success and (self.record is None or self.failure is not None):
+            raise ValueError("成功结果必须包含 record，且不能包含 failure")
+        if not self.success and (self.failure is None or self.record is not None):
+            raise ValueError("失败结果必须包含 failure，且不能包含 record")
+        return self
