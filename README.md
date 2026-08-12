@@ -6,7 +6,7 @@ Streamlit 和可量化评测。
 
 ## 项目解决的问题
 
-人工整理一篇论文的方法、数据集和指标通常需要约15分钟。PaperExtractor 的
+人工整理一篇论文的方法、实验条件和指标通常需要约15分钟。PaperExtractor 的
 目标是把几十篇论文的对比整理从数小时压缩到几分钟，同时保留失败诊断、重试
 记录和准确率评测，不把 LLM 输出当作天然正确的数据。
 
@@ -16,14 +16,44 @@ Streamlit 和可量化评测。
 - [x] M1：PDF / DOCX 文档解析
 - [x] M2：LLM 客户端与 Prompt
 - [x] M3：三级容错抽取器
-- [ ] M4：批量调度
-- [ ] M5：SQLite 持久化
-- [ ] M6：Excel / JSON 导出
+- [x] M4：批量调度
+- [x] M5：SQLite 持久化
+- [x] M6：Excel / JSON 导出
 - [ ] M7：FastAPI
 - [ ] M8：Streamlit
 - [ ] M9：准确率评测
 
-当前已完成 M0～M3，不包含尚未验收模块的业务实现。
+当前已完成 M0～M6，不包含尚未验收模块的业务实现。
+
+## 日常使用：自动处理输入文件夹
+
+只需在 `.env` 中统一配置输入与输出目录：
+
+```dotenv
+# 自动读取该文件夹第一层的全部 PDF / DOCX
+INPUT_DIR=data/inbox
+# 生成论文对比表.xlsx 和论文完整数据.json
+OUTPUT_DIR=data/output
+# 保存批次历史；建议与输出目录分开
+DB_PATH=storage/app.db
+```
+
+相对路径从项目根目录开始，也可以填写绝对路径，例如：
+
+```dotenv
+INPUT_DIR=E:/待处理论文
+OUTPUT_DIR=E:/论文抽取结果
+```
+
+把论文拖入 `INPUT_DIR` 后，在 VS Code “运行和调试”中选择
+`M1-M6：自动处理输入文件夹（调用 DeepSeek）` 并点击运行。程序会自动读取所有
+`.pdf` 和 `.docx`，不需要把文件名写进 Python 代码。命令行等价操作为：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\run_real_m1_m6.py
+```
+
+> 注意：这个入口会真实调用 DeepSeek；输入目录中有几篇论文，就会处理几篇。
 
 ## Windows 快速开始
 
@@ -85,6 +115,43 @@ M3 会清洗 JSON、使用 Pydantic 校验 11 个字段、把具体错误反馈�
 重试耗尽后返回失败诊断，不让异常中断后续批处理。详细解释见
 [`docs/notes/M3_三级容错抽取器.md`](docs/notes/M3_三级容错抽取器.md)。
 
+## 检查批量调度
+
+运行不访问 DeepSeek 的 10 文件本地演示：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\demo_m4_batch.py
+```
+
+演示使用 3 个工作线程，模拟 8 篇成功、1 篇解析失败和 1 篇抽取失败，并逐篇输出
+进度。M4 会保持最终结果与输入文件同序，单篇失败不会中断整批。详细解释见
+[`docs/notes/M4_批量调度.md`](docs/notes/M4_批量调度.md)。
+
+## 检查 SQLite 持久化
+
+运行不访问 DeepSeek 的临时数据库演示：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\demo_m5_database.py
+```
+
+脚本把 2 条成功结果和 1 条失败诊断写入 SQLite，再重新连接查询三张表，证明数据
+已经落盘而不是只留在内存。详细解释见
+[`docs/notes/M5_SQLite持久化.md`](docs/notes/M5_SQLite持久化.md)。
+
+## 检查 Excel / JSON 导出
+
+运行不访问 DeepSeek 的本地导出演示：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\demo_m6_export.py
+```
+
+脚本先把演示批次保存到 SQLite，再按 `task_id` 生成可筛选的论文对比表和完整 JSON。
+输出位于 `data/output/m6-demo`。Excel 包含论文结果、失败记录和任务概览三个工作表；
+失败记录仍保持在第二页，方便和规格书约定一致。
+详细解释见 [`docs/notes/M6_Excel与JSON导出.md`](docs/notes/M6_Excel与JSON导出.md)。
+
 ## 11 个目标字段
 
 1. `title`
@@ -94,7 +161,7 @@ M3 会清洗 JSON、使用 Pydantic 校验 11 个字段、把具体错误反馈�
 5. `doc_type`
 6. `problem`
 7. `method_name`
-8. `datasets`
+8. `experimental_conditions`
 9. `main_results`
 10. `limitations`
 11. `summary`

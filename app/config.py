@@ -32,6 +32,8 @@ class Settings:
     llm_json_mode: bool
     extract_max_chars: int
     batch_concurrency: int
+    input_dir: Path
+    output_dir: Path
     db_path: Path
     log_level: str
     log_path: Path
@@ -87,9 +89,11 @@ class Settings:
             batch_concurrency=_positive_int(
                 source, "BATCH_CONCURRENCY", "3"
             ),
-            db_path=PROJECT_ROOT / source.get("DB_PATH", "storage/app.db"),
+            input_dir=_path_setting(source, "INPUT_DIR", "data/inbox"),
+            output_dir=_path_setting(source, "OUTPUT_DIR", "data/output"),
+            db_path=_path_setting(source, "DB_PATH", "storage/app.db"),
             log_level=source.get("LOG_LEVEL", "INFO").upper(),
-            log_path=PROJECT_ROOT / source.get("LOG_PATH", "logs/app.log"),
+            log_path=_path_setting(source, "LOG_PATH", "logs/app.log"),
         )
 
 
@@ -104,6 +108,20 @@ def _required(env: Mapping[str, str], name: str) -> str:
     if not value:
         raise ConfigurationError(f"缺少必填配置：{name}")
     return value
+
+
+def _path_setting(
+    env: Mapping[str, str],
+    name: str,
+    default: str,
+) -> Path:
+    """把相对路径解释为项目内路径，同时允许用户填写绝对路径。"""
+
+    raw_value = env.get(name, default).strip()
+    if not raw_value:
+        raise ConfigurationError(f"{name} 不能为空")
+    path = Path(raw_value).expanduser()
+    return path if path.is_absolute() else PROJECT_ROOT / path
 
 
 def _boolean(env: Mapping[str, str], name: str, default: str) -> bool:

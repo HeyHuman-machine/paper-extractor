@@ -24,6 +24,11 @@ def test_prompt_contains_json_schema_and_few_shot() -> None:
     assert "JSON Schema" in messages[0]["content"]
     assert '"title"' in messages[0]["content"]
     assert "禁止使用外部知识" in messages[0]["content"]
+    assert "experimental_conditions" in messages[0]["content"]
+    assert "不得根据实验条件自行推断" in messages[0]["content"]
+    assert "不得写“未明确给出”" in messages[0]["content"]
+    assert "必须直接填 null" in messages[0]["content"]
+    assert "datasets" not in messages[0]["content"]
     assert json.loads(messages[2]["content"]) == FEW_SHOT_RESULT
     PaperRecord.model_validate(FEW_SHOT_RESULT)
 

@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "M4：10 文件批量演示（不花 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/demo_m4_batch.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "M5：SQLite 保存与查询演示",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/demo_m5_database.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "M6：导出 Excel 和 JSON（不消耗 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/demo_m6_export.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "M1-M6：自动处理输入文件夹（调用 DeepSeek）",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/run_real_m1_m6.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        }
+    ]
+}
