@@ -140,6 +140,36 @@ def get_task(
     return dict(row) if row is not None else None
 
 
+def list_tasks(
+    *,
+    limit: int = 20,
+    offset: int = 0,
+    db_path: Path | str | None = None,
+) -> list[dict[str, Any]]:
+    """按最新任务优先分页查询任务总览。"""
+
+    if limit < 1:
+        raise ValueError("limit 必须大于等于 1")
+    if offset < 0:
+        raise ValueError("offset 不能小于 0")
+    with connect(db_path) as connection:
+        _ensure_schema(connection)
+        rows = connection.execute(
+            "SELECT * FROM tasks ORDER BY id DESC LIMIT ? OFFSET ?",
+            (limit, offset),
+        ).fetchall()
+    return [dict(row) for row in rows]
+
+
+def count_tasks(db_path: Path | str | None = None) -> int:
+    """返回任务总数，供 API 分页响应计算。"""
+
+    with connect(db_path) as connection:
+        _ensure_schema(connection)
+        row = connection.execute("SELECT COUNT(*) AS count FROM tasks").fetchone()
+    return int(row["count"])
+
+
 def get_results(
     task_id: int,
     db_path: Path | str | None = None,

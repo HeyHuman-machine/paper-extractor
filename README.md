@@ -19,11 +19,21 @@ Streamlit 和可量化评测。
 - [x] M4：批量调度
 - [x] M5：SQLite 持久化
 - [x] M6：Excel / JSON 导出
-- [ ] M7：FastAPI
+- [x] M7：FastAPI
 - [ ] M8：Streamlit
 - [ ] M9：准确率评测
 
-当前已完成 M0～M6，不包含尚未验收模块的业务实现。
+当前已完成 M0～M7，不包含尚未验收模块的业务实现。
+
+## 启动 FastAPI
+
+在 VS Code“运行和调试”中选择 `M7：启动 FastAPI（打开 /docs）`，或执行：
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.api:app --reload
+```
+
+打开 <http://127.0.0.1:8000/docs>，可直接上传多个 PDF / DOCX、查询任务和下载 Excel / JSON。接口流程说明见 [`docs/notes/M7_FastAPI接口.md`](docs/notes/M7_FastAPI接口.md)。
 
 ## 日常使用：自动处理输入文件夹
 

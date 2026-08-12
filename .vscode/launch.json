@@ -2,6 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "M7：启动 FastAPI（打开 /docs）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": ["app.api:app", "--reload", "--host", "127.0.0.1", "--port", "8000"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
             "name": "M4：10 文件批量演示（不花 API）",
             "type": "debugpy",
             "request": "launch",
