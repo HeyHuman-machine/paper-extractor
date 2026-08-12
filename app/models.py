@@ -81,3 +81,14 @@ class ParsedDoc(BaseModel):
     pages: list[str] = Field(min_length=1)
     metadata: dict[str, Any] = Field(default_factory=dict)
 
+
+class LLMResponse(BaseModel):
+    """一次成功的大模型调用结果及其可观测指标。"""
+
+    content: str = Field(min_length=1, description="模型返回的正文")
+    model: str = Field(min_length=1, description="服务端实际使用的模型")
+    prompt_tokens: int = Field(default=0, ge=0)
+    completion_tokens: int = Field(default=0, ge=0)
+    total_tokens: int = Field(default=0, ge=0)
+    latency_ms: int = Field(ge=0, description="包含重试等待在内的总耗时")
+    retry_count: int = Field(default=0, ge=0)

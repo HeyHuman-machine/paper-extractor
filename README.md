@@ -14,7 +14,7 @@ Streamlit 和可量化评测。
 
 - [x] M0：环境与项目骨架
 - [x] M1：PDF / DOCX 文档解析
-- [ ] M2：LLM 客户端与 Prompt
+- [x] M2：LLM 客户端与 Prompt
 - [ ] M3：三级容错抽取器
 - [ ] M4：批量调度
 - [ ] M5：SQLite 持久化
@@ -23,7 +23,7 @@ Streamlit 和可量化评测。
 - [ ] M8：Streamlit
 - [ ] M9：准确率评测
 
-当前已完成 M0～M1，不包含尚未验收模块的业务实现。
+当前已完成 M0～M2，不包含尚未验收模块的业务实现。
 
 ## Windows 快速开始
 
@@ -54,6 +54,18 @@ uv run python scripts/inspect_documents.py
 也可以在命令末尾传入一个或多个文件路径。M1 会输出格式、页数、字符数和
 前 500 字；加密、损坏、格式不支持或疑似扫描件都会得到明确错误信息。
 详细解释见 [`docs/notes/M1_文档解析.md`](docs/notes/M1_文档解析.md)。
+
+## 检查 DeepSeek 连接
+
+先复制 `.env.example` 为 `.env`，在本机填写 API Key，再执行：
+
+```powershell
+uv run python scripts/check_llm.py
+```
+
+该脚本只发送内置的虚构论文短文本，不会读取 `data/inbox`。它会打印模型名、
+token 用量、耗时、重试次数和通过 Pydantic 校验的 11 字段结果。详细解释见
+[`docs/notes/M2_LLM客户端与Prompt.md`](docs/notes/M2_LLM客户端与Prompt.md)。
 
 ## 11 个目标字段
 
