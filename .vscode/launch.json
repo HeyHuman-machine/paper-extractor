@@ -2,6 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "M8：启动 Streamlit 界面",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": ["run", "ui/streamlit_app.py", "--server.port", "8501"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
             "name": "M7：启动 FastAPI（打开 /docs）",
             "type": "debugpy",
             "request": "launch",
@@ -46,6 +56,16 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true
+        }
+    ],
+    "compounds": [
+        {
+            "name": "M8：同时启动后端与界面",
+            "configurations": [
+                "M7：启动 FastAPI（打开 /docs）",
+                "M8：启动 Streamlit 界面"
+            ],
+            "stopAll": true
         }
     ]
 }

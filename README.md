@@ -20,10 +20,20 @@ Streamlit 和可量化评测。
 - [x] M5：SQLite 持久化
 - [x] M6：Excel / JSON 导出
 - [x] M7：FastAPI
-- [ ] M8：Streamlit
+- [x] M8：Streamlit
 - [ ] M9：准确率评测
 
-当前已完成 M0～M7，不包含尚未验收模块的业务实现。
+当前已完成 M0～M8，不包含尚未验收模块的业务实现。
+
+## 启动可视化界面
+
+在 VS Code“运行和调试”中选择 `M8：同时启动后端与界面`，一次启动 M7 与 M8，
+然后打开 <http://127.0.0.1:8501>。界面支持上传论文、查看历史任务、失败诊断，
+以及下载 Excel / JSON。
+
+也可以分别选择 `M7：启动 FastAPI（打开 /docs）` 与
+`M8：启动 Streamlit 界面`。详细流程见
+[`docs/notes/M8_Streamlit界面.md`](docs/notes/M8_Streamlit界面.md)。
 
 ## 启动 FastAPI
 

@@ -12,6 +12,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, ConfigDict
+from starlette.background import BackgroundTask
 from starlette.requests import Request
 
 from app.config import ConfigurationError, get_settings
@@ -106,6 +107,19 @@ def _error_response(
     )
 
 
+def _safe_validation_errors(exc: RequestValidationError) -> list[dict[str, Any]]:
+    """只返回可 JSON 序列化且不包含上传内容的参数错误摘要。"""
+
+    return [
+        {
+            "location": list(error.get("loc", ())),
+            "message": error.get("msg", "请求参数无效"),
+            "type": error.get("type", "validation_error"),
+        }
+        for error in exc.errors()
+    ]
+
+
 def _task_or_404(task_id: int, db_path: Path) -> dict[str, Any]:
     task = get_task(task_id, db_path)
     if task is None:
@@ -149,7 +163,12 @@ def create_app() -> FastAPI:
     async def validation_exception_handler(
         request: Request, exc: RequestValidationError
     ) -> JSONResponse:
-        return _error_response(422, "RequestValidationError", "请求参数校验失败", exc.errors())
+        return _error_response(
+            422,
+            "RequestValidationError",
+            "请求参数校验失败",
+            _safe_validation_errors(exc),
+        )
 
     @app.get("/health", response_model=HealthResponse, tags=["system"])
     def health() -> HealthResponse:
@@ -162,7 +181,15 @@ def create_app() -> FastAPI:
         tags=["tasks"],
     )
     def create_task(
-        files: Annotated[list[UploadFile], File(description="PDF / DOCX 文件，可多选")],
+        files: Annotated[
+            list[UploadFile],
+            File(
+                description="PDF / DOCX 文件，可多选",
+                json_schema_extra={
+                    "items": {"type": "string", "format": "binary"}
+                },
+            ),
+        ],
     ) -> TaskDetailResponse:
         if not files:
             raise HTTPException(status_code=400, detail="至少上传一个文件")
@@ -233,7 +260,7 @@ def create_app() -> FastAPI:
     ) -> FileResponse:
         settings = get_settings()
         _task_or_404(task_id, settings.db_path)
-        export_dir = settings.output_dir / "api-exports"
+        export_dir = Path(tempfile.mkdtemp(prefix=f"paper-extractor-export-{task_id}-"))
         if format == "xlsx":
             path = export_excel(
                 task_id,
@@ -248,7 +275,12 @@ def create_app() -> FastAPI:
                 db_path=settings.db_path,
             )
             media_type = "application/json"
-        return FileResponse(path, media_type=media_type, filename=path.name)
+        return FileResponse(
+            path,
+            media_type=media_type,
+            filename=f"task-{task_id}.{format}",
+            background=BackgroundTask(shutil.rmtree, export_dir, True),
+        )
 
     return app
 

@@ -106,6 +106,21 @@ def test_health_docs_and_openapi_are_available(client: TestClient) -> None:
     assert "/api/tasks/{task_id}/export" in paths
 
 
+def test_openapi_marks_each_upload_as_binary(client: TestClient) -> None:
+    """Swagger 必须渲染文件选择器，不能把 PDF 字节显示为字符串乱码。"""
+
+    schema = client.get("/openapi.json").json()
+    body_schema = schema["components"]["schemas"][
+        "Body_create_task_api_tasks_post"
+    ]
+
+    assert body_schema["properties"]["files"]["type"] == "array"
+    assert body_schema["properties"]["files"]["items"] == {
+        "type": "string",
+        "format": "binary",
+    }
+
+
 def test_upload_runs_batch_saves_task_and_returns_m3_schema(
     client: TestClient,
     monkeypatch: pytest.MonkeyPatch,
@@ -202,3 +217,17 @@ def test_errors_use_one_structured_shape(client: TestClient) -> None:
     assert invalid_format.json()["error"]["type"] == "RequestValidationError"
     assert unsupported.status_code == 400
     assert unsupported.json()["error"]["type"] == "HTTPException"
+
+
+def test_text_form_value_returns_422_instead_of_hiding_error_as_500(
+    client: TestClient,
+) -> None:
+    """旧 Swagger 若提交 files=string，也必须暴露清楚的参数错误。"""
+
+    response = client.post("/api/tasks", data={"files": "string"})
+
+    assert response.status_code == 422
+    payload = response.json()["error"]
+    assert payload["type"] == "RequestValidationError"
+    assert payload["details"][0]["location"] == ["body", "files", 0]
+    assert "UploadFile" in payload["details"][0]["message"]
