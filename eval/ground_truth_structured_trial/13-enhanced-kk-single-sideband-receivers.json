@@ -1,0 +1,25 @@
+{
+  "filename": "13-enhanced-kk-single-sideband-receivers.pdf",
+  "needs_review": false,
+  "annotation_meta": {"split": "b2_structured_pilot", "review_status": "ai_draft_pending_human_review", "reviewed_by": "Codex AI draft", "reviewed_at": "2026-08-13", "note": "由既有冻结文字标注拆分为结构化草稿，并回查论文；请人工复核后再改为 false。"},
+  "record": {
+    "experimental_conditions": [
+      {"name": "study_type", "value": "numerical simulation", "unit": null},
+      {"name": "modulation", "value": "16QAM", "unit": null},
+      {"name": "baud_rate", "value": "25", "unit": "Gbaud"},
+      {"name": "fiber_length", "value": "100", "unit": "km"},
+      {"name": "fiber_type", "value": "SSMF", "unit": null},
+      {"name": "CSPR", "value": "7", "unit": "dB"},
+      {"name": "sideband_offset", "value": "13.5", "unit": "GHz"},
+      {"name": "simulation_sample_rate", "value": "400", "unit": "GS/s"}
+    ],
+    "main_results": [
+      {"metric": "required_SNR", "value": "24", "unit": "dB", "condition": "below KP4 threshold; clipping level 0.1; back-to-back"},
+      {"metric": "carrier_power_reduction", "value": "2", "unit": "dB", "condition": "clipping plus logarithm instead of square root"},
+      {"metric": "receiver_sensitivity_improvement", "value": "0.25", "unit": "dB", "condition": "clipping plus logarithm vs conventional processing"},
+      {"metric": "carrier_power_reduction", "value": "3", "unit": "dB", "condition": "with 100-km fiber"},
+      {"metric": "receiver_sensitivity", "value": "-6.28", "unit": "dBm", "condition": "back-to-back; 9-dB CSPR; logarithm with 30% clipping"}
+    ]
+  },
+  "evidence": {}
+}

@@ -1,0 +1,16 @@
+{
+  "filename": "27-review-self-coherent-optical-transceivers.pdf",
+  "needs_review": false,
+  "annotation_meta": {"split": "b2_structured_pilot", "review_status": "ai_draft_pending_human_review", "reviewed_by": "Codex AI draft", "reviewed_at": "2026-08-13", "note": "综述论文：只记录作者汇总的可量化对比结果；请人工复核后再改为 false。"},
+  "record": {
+    "experimental_conditions": [],
+    "main_results": [
+      {"metric": "CSPR", "value": "0", "unit": "dB", "condition": "SV-DD based experimental demonstrations over more than 100 km SSMF"},
+      {"metric": "CSPR", "value": "8", "unit": "dB", "condition": "KK based demonstrations; lower bound of reported range"},
+      {"metric": "upsampling_rate", "value": "2", "unit": "Sa/symbol", "condition": "approximation-based upsampling-free KK algorithm"},
+      {"metric": "CSPR_reduction", "value": "3", "unit": "dB", "condition": "enhanced KK vs conventional KK"},
+      {"metric": "optical_spectral_efficiency", "value": "75", "unit": "%", "condition": "3D Stokes-space field recovery relative to 4D PDM-COH"}
+    ]
+  },
+  "evidence": {}
+}

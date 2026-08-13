@@ -81,6 +81,46 @@ def test_normal_response_succeeds_without_retry() -> None:
     ]
 
 
+def test_evidence_aware_extractor_sends_labeled_evidence_to_llm() -> None:
+    paper = (
+        "TITLE\n" + ("intro\n" * 500)
+        + "We propose a named method.\n3. Experimental Results\nBER: 1e-3.\n"
+        + ("result\n" * 500) + "CONCLUSION"
+    )
+    client = FakeLLMClient([response(valid_json())])
+
+    result = Extractor(settings(), client, evidence_aware=True).extract(paper)
+
+    assert result.success is True
+    sent_text = client.received_messages[0][-1]["content"]
+    assert "方法命名证据" in sent_text
+    assert "实验 / 仿真 / 结果证据" in sent_text
+
+
+def test_keyword_evidence_extractor_sends_measurement_evidence_to_llm() -> None:
+    paper = (
+        "TITLE\n" + ("background\n" * 500)
+        + "16 Gbaud over 20 km at -18 dBm. BER below 3.8e-3.\n"
+        + ("result\n" * 500) + "CONCLUSION"
+    )
+    client = FakeLLMClient([response(valid_json())])
+
+    result = Extractor(
+        settings(), client, evidence_strategy="keywords"
+    ).extract(paper)
+
+    assert result.success is True
+    sent_text = client.received_messages[0][-1]["content"]
+    assert "条件数值证据" in sent_text
+    assert "结果指标证据" in sent_text
+
+
+def test_few_shot_example_requires_atomic_conditions_and_results() -> None:
+    assert "modulation: 16QAM" in FEW_SHOT_RESULT["experimental_conditions"]
+    assert "baud_rate: 16 Gbaud" in FEW_SHOT_RESULT["experimental_conditions"]
+    assert all("| condition:" in item for item in FEW_SHOT_RESULT["main_results"])
+
+
 def test_parser_strips_code_fence_and_extra_text() -> None:
     raw_output = f"这是结果：\n```json\n{valid_json()}\n```\n处理完成"
 
@@ -147,6 +187,20 @@ def test_retry_exhaustion_returns_failure_instead_of_raising() -> None:
     assert result.retry_count == 1
     assert result.total_tokens == 90
     assert len(result.attempts) == 2
+
+
+def test_evaluation_can_disable_only_content_repair_retries() -> None:
+    client = FakeLLMClient([response("not json", 40)])
+
+    result = Extractor(
+        settings(max_retries=2),
+        client,
+        max_repair_retries=0,
+    ).extract("a fictional paper")
+
+    assert result.success is False
+    assert result.retry_count == 0
+    assert len(result.attempts) == 1
 
 
 def test_api_error_is_isolated_as_failure_result() -> None:

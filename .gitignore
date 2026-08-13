@@ -17,6 +17,15 @@ data/inbox/*
 data/output/*
 outputs/*
 logs/*.log
+eval/predictions/*.json
+eval/predictions/**/*.json
+eval/output/*
+eval/ground_truth/*.json
+eval/ground_truth/seed/*.json
+eval/ground_truth/evaluation/*.json
+literature/optical-communications/final_holdout/
+literature/**/*.pdf
+eval/ground_truth_final_holdout/*.json
 
 # 保留空目录的占位文件
 !storage/.gitkeep
@@ -24,6 +33,13 @@ logs/*.log
 !data/output/.gitkeep
 !outputs/.gitkeep
 !logs/.gitkeep
+!eval/predictions/.gitkeep
+!eval/output/.gitkeep
+!eval/ground_truth/.gitkeep
+!eval/ground_truth/_template.json
+!eval/ground_truth/seed/.gitkeep
+!eval/ground_truth/evaluation/.gitkeep
+!eval/ground_truth_final_holdout/.gitkeep
 
 # 编辑器和系统文件
 .idea/

@@ -1,0 +1,15 @@
+{
+  "filename": "22-kk-digitally-added-carrier.pdf",
+  "needs_review": false,
+  "annotation_meta": {
+    "split": "agreement_recheck",
+    "reviewer": "independent_ai_reviewer",
+    "instruction": "Independent AI recheck from the paper only; original ground truth was not opened.",
+    "evidence_basis": "local PDF, pages 2-6 and conclusion"
+  },
+  "review": {
+    "method_name": "Kramers-Kronig receiver with digitally added carrier and digital resolution enhancer (DRE)",
+    "experimental_conditions": ["Experimental 64-QAM transmission at 25 GBd over 50 km standard single-mode fiber", "Digitally added carrier at 13.9 GHz offset", "6-bit DAC with approximately 5 effective bits at 100 GSa/s; DRE parameters M = 3 and L = 5", "NGMI FEC threshold of 0.92, equivalent to a net data rate of 127 Gb/s"],
+    "main_results": ["With a full 6-bit DAC, DRE increased NGMI by 0.013 and reduced required OSNR by 2 dB at the FEC limit", "DRE enabled a 5-bit DAC with limited penalty", "A 4-bit DAC with DRE matched the performance of a 6-bit DAC without DRE"]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "purpose": "A1 标注一致性复核：固定随机种子抽取的 8 篇论文",
+  "sampling": {
+    "population": "literature/optical-communications/evaluation",
+    "excluded_after_prior_exposure": [
+      "07-simplified-twin-ssb-direct-detection.pdf"
+    ],
+    "seed": 20260813,
+    "sample_size": 8
+  },
+  "files": [
+    "09-comparison-digital-ssbi-compensation.pdf",
+    "12-carrier-assisted-differential-detection.pdf",
+    "13-enhanced-kk-single-sideband-receivers.pdf",
+    "14-kramers-kronig-pam-transceiver.pdf",
+    "16-integrated-dual-laser-terahertz-chip.pdf",
+    "22-kk-digitally-added-carrier.pdf",
+    "25-multicarrier-thz-wireless-transmission.pdf",
+    "30-review-recent-coherent-optical-communications.pdf"
+  ]
+}

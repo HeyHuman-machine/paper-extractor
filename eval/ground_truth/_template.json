@@ -1,0 +1,17 @@
+{
+  "filename": "paper.pdf",
+  "needs_review": true,
+  "record": {
+    "title": "",
+    "authors": [],
+    "year": null,
+    "venue": null,
+    "doc_type": "journal_article",
+    "problem": "",
+    "method_name": null,
+    "experimental_conditions": [],
+    "main_results": [],
+    "limitations": null,
+    "summary": ""
+  }
+}

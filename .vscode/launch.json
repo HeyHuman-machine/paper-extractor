@@ -12,6 +12,136 @@
             "justMyCode": true
         },
         {
+            "name": "M9-1：生成标注草稿",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.prepare_labels",
+            "args": ["--blank-from-dir", "literature/optical-communications/evaluation"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "M9-2：生成两轮预测（消耗 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_predictions",
+            "args": ["--input-dir", "literature/optical-communications/evaluation", "--confirm-cost"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "M9-3：生成评测报告",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_eval",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "最终 M9：复现冻结 30 篇报告（不调用 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_eval",
+            "args": [
+                "--ground-truth", "eval/ground_truth_final_holdout",
+                "--baseline", "eval/predictions/final-holdout-v1/no_retry.json",
+                "--robust", "eval/predictions/final-holdout-v1/with_retries.json",
+                "--output-dir", "eval/output/final-holdout-v1"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "B1：方法名称评分规则校准（不花 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_method_rule_calibration",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "B2-1：生成结构化试点标注模板（不花 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.prepare_structured_trial",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "B2-2：结构化输出试点（10 篇，消耗 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_structured_trial",
+            "args": ["--confirm-cost"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "B2-3：结构化试点评测（不花 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.evaluate_structured_trial",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "V2：开发集 Prompt 验证（消耗 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_development_validation",
+            "args": ["--confirm-cost"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "V4：证据片段开发集验证（消耗 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_development_validation",
+            "args": ["--evidence-aware", "--output", "eval/predictions/v4-development/predictions.json", "--label", "V4 证据片段开发集验证", "--confirm-cost"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "V5：关键词证据开发集验证（消耗 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_development_validation",
+            "args": ["--evidence-strategy", "keywords", "--output", "eval/predictions/v5-development/predictions.json", "--label", "V5 关键词证据开发集验证", "--confirm-cost"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "V6：只精修主要结果（消耗 API）",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_hybrid_validation",
+            "args": ["--confirm-cost"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "V2：生成 V1-V2 公平对比报告",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "eval.run_version_comparison",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
             "name": "M7：启动 FastAPI（打开 /docs）",
             "type": "debugpy",
             "request": "launch",

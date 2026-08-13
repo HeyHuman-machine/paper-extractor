@@ -14,6 +14,7 @@ from typing import Any, Protocol
 from pydantic import ValidationError
 
 from app.config import Settings, get_settings
+from app.evidence import build_evidence_bundle, build_keyword_evidence_bundle
 from app.llm import LLMClient, LLMError
 from app.models import (
     ExtractionAttempt,
@@ -24,7 +25,12 @@ from app.models import (
     PaperRecord,
 )
 from app.parser import smart_truncate
-from app.prompts import append_repair_message, build_extraction_messages
+from app.prompts import (
+    append_repair_message,
+    build_evidence_extraction_messages,
+    build_extraction_messages,
+    build_keyword_evidence_extraction_messages,
+)
 
 
 class ChatClient(Protocol):
@@ -45,9 +51,25 @@ class JSONExtractionError(ValueError):
 class Extractor:
     """执行 JSON 清洗、Pydantic 校验和修正重试。"""
 
-    def __init__(self, settings: Settings, llm_client: ChatClient) -> None:
+    def __init__(
+        self,
+        settings: Settings,
+        llm_client: ChatClient,
+        *,
+        max_repair_retries: int | None = None,
+        evidence_aware: bool = False,
+        evidence_strategy: str | None = None,
+    ) -> None:
         self.settings = settings
         self.llm_client = llm_client
+        if max_repair_retries is not None and max_repair_retries < 0:
+            raise ValueError("max_repair_retries 不能小于 0")
+        self.max_repair_retries = max_repair_retries
+        if evidence_strategy not in {None, "sections", "keywords"}:
+            raise ValueError("evidence_strategy 仅支持 sections 或 keywords")
+        self.evidence_strategy = (
+            evidence_strategy or ("sections" if evidence_aware else "none")
+        )
 
     def extract(self, text: str) -> ExtractionResult:
         """从论文文本抽取 ``PaperRecord``，预期失败均作为结果返回。"""
@@ -60,10 +82,21 @@ class Extractor:
             cleaned_text = text.strip()
             if not cleaned_text:
                 raise ValueError("待抽取文本不能为空")
-            truncated_text = smart_truncate(
-                cleaned_text, self.settings.extract_max_chars
-            )
-            messages = build_extraction_messages(truncated_text)
+            if self.evidence_strategy == "sections":
+                evidence_text = build_evidence_bundle(
+                    cleaned_text, self.settings.extract_max_chars
+                )
+                messages = build_evidence_extraction_messages(evidence_text)
+            elif self.evidence_strategy == "keywords":
+                evidence_text = build_keyword_evidence_bundle(
+                    cleaned_text, self.settings.extract_max_chars
+                )
+                messages = build_keyword_evidence_extraction_messages(evidence_text)
+            else:
+                truncated_text = smart_truncate(
+                    cleaned_text, self.settings.extract_max_chars
+                )
+                messages = build_extraction_messages(truncated_text)
         except ValueError as exc:
             return _failure_result(
                 stage=ExtractionStage.INPUT,
@@ -74,7 +107,12 @@ class Extractor:
                 started_at=started_at,
             )
 
-        max_attempts = self.settings.llm_max_retries + 1
+        repair_retries = (
+            self.settings.llm_max_retries
+            if self.max_repair_retries is None
+            else self.max_repair_retries
+        )
+        max_attempts = repair_retries + 1
         last_stage = ExtractionStage.JSON_PARSE
         last_error: Exception = JSONExtractionError("尚未收到模型输出")
         last_raw_output: str | None = None

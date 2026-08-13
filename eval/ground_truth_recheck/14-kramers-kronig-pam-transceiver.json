@@ -1,0 +1,15 @@
+{
+  "filename": "14-kramers-kronig-pam-transceiver.pdf",
+  "needs_review": false,
+  "annotation_meta": {
+    "split": "agreement_recheck",
+    "reviewer": "independent_ai_reviewer",
+    "instruction": "Independent AI recheck from the paper only; original ground truth was not opened.",
+    "evidence_basis": "local PDF, pages 1-6"
+  },
+  "review": {
+    "method_name": "Kramers-Kronig PAM transceiver and two-sided polarization-multiplexed Kramers-Kronig (TS-KK) transceiver",
+    "experimental_conditions": ["KK-PAM numerical validation over 100 km SSMF using 48-Gbaud 4-PAM and roll-off 0.05", "KK-PAM simulations used a 26 dB loss budget and 5 dB noise figure", "TS-KK simulation transmitted two 48-Gbaud 4-ASK signals through five 100 km spans", "TS-KK simulation used 80 GHz WDM spacing and an 8.6 GHz frequency gap"],
+    "main_results": ["KK-PAM reconstructs optical phase and enables digital chromatic-dispersion compensation", "For 500 km propagation, TS-KK BER remained below 10^-3 in the evaluated cases", "TS-KK needs four photodiodes and no optical hybrids, compared with eight photodiodes and two optical hybrids for an intradyne receiver"]
+  }
+}

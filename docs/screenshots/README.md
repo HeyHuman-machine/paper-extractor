@@ -6,3 +6,4 @@
 - `m8-history-final.png`：历史任务及结构化结果页。
 - `m8-failures.png`：失败诊断页。
 - `m8-mobile.png`：390px 手机视口，侧栏收起后的页面。
+- `m9-evaluation-empty.png`：M9 尚未完成人工标注时的真实空状态。

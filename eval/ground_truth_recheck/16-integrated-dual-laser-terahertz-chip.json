@@ -1,0 +1,15 @@
+{
+  "filename": "16-integrated-dual-laser-terahertz-chip.pdf",
+  "needs_review": false,
+  "annotation_meta": {
+    "split": "agreement_recheck",
+    "reviewer": "independent_ai_reviewer",
+    "instruction": "Independent AI recheck. The local PDF text layer was unreadable, so the publisher article page was used; original ground truth was not opened.",
+    "evidence_basis": "local PDF metadata plus publisher article page"
+  },
+  "review": {
+    "method_name": "Injection-locked dual-DFB photonic integrated-circuit heterodyne THz generator",
+    "experimental_conditions": ["Two monolithically integrated DFB lasers injection-locked by a mode-locked-laser optical frequency comb", "0.4 THz photonic-wireless link using 16-QAM OFDM", "44.43 GHz signal bandwidth and 10.7 m wireless transmission distance", "14 dBm optical power in the reported high-speed experiment"],
+    "main_results": ["The integrated source was tunable from 0 to 1.4 THz", "A net rate of 131.21 Gbit/s was transmitted over 10.7 m at 0.4 THz", "Optical injection locking improved tone OSNR by about 10 dB relative to the original comb"]
+  }
+}

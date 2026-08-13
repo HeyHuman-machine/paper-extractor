@@ -21,9 +21,73 @@ Streamlit 和可量化评测。
 - [x] M6：Excel / JSON 导出
 - [x] M7：FastAPI
 - [x] M8：Streamlit
-- [ ] M9：准确率评测
+- [x] M9：准确率评测（30 篇独立盲测已完成两轮真实运行与报告）
 
-当前已完成 M0～M8，不包含尚未验收模块的业务实现。
+当前已完成 M0～M9。30 篇独立盲测已冻结人工答案并完成真实运行；V2 与 V3 的 Prompt
+优化均先在 6 篇开发集验证，避免用冻结盲测集反复调参。当前正在进行阶段 A 评测诊断：
+只测量既有 V2 预测与标注的差异，不修改 Prompt 或抽取逻辑。B1 已完成方法名称评分
+规则的平行校准：旧规则 69.77%，候选规则 72.27%；这是修正已暴露数据集上的表述误判，
+不是模型准确率提升。
+
+## M9 准确率评测
+
+M9 用同一批人工答案比较两轮配置：① 无内容修正重试；② M3 三级容错。
+网络层 HTTP 重试保持一致，避免把网络稳定性混进容错效果。
+
+在 VS Code“运行和调试”中依次运行：
+
+1. `M9-1：生成独立盲测空白模板`：只读取 `evaluation/` 文件名，不调用 DeepSeek，也不复制旧预测。
+2. 逐篇依据 PDF 填写 `eval/ground_truth/evaluation/`，30 篇全部确认后冻结答案。
+3. `M9-2：生成两轮预测（消耗 API）`：只对同一批 30 篇盲测论文真实调用 DeepSeek 两轮。
+4. `M9-3：生成评测报告`：生成 Markdown、JSON 和 PNG 柱状图。
+
+标题、方法名、期刊用模糊匹配；年份和文档类型精确匹配；作者、实验条件、主要
+结果用原子事实集合 Precision/Recall/F1。研究问题、局限性、摘要是自由文本，不做不可靠
+的自动评分。详见 [`docs/notes/M9_准确率评测.md`](docs/notes/M9_准确率评测.md)。
+
+三级容错的 B0 消融实验已在 30 篇固定论文上真实运行：完整三级容错将事后 Schema 合法的
+可用输出从 27/30 提升到 30/30，平均多消耗约 606 Token/篇。逐篇证据与解释边界见
+[`eval/output/ablation-b0/ablation_report.md`](eval/output/ablation-b0/ablation_report.md)。
+
+方法名称评分规则的 B1 校准不调用 API；它只平行比较旧版 0.90 模糊匹配与候选规则，候选
+规则仅处理括号解释、通用后缀、显式缩写和同一主方法的轻微措辞差异。可在 VS Code 运行
+`B1：方法名称评分规则校准（不花 API）`，或执行：
+
+```powershell
+.\.venv\Scripts\python.exe -m eval.run_method_rule_calibration
+```
+
+报告见 [`eval/output/rule-calibration-b1/rule_calibration.md`](eval/output/rule-calibration-b1/rule_calibration.md)。
+
+## B2：结构化输出试点（准备完成，等待人工标注）
+
+诊断显示模型/标注的条目数量比为实验条件 **0.65**、主要结果 **0.38**，切分粒度明显
+不一致。因此 B2 不直接修改主项目的 11 字段 Schema，而是在独立评测试验层中把两个字段
+改为对象列表：条件是 `{name, value, unit}`，结果是 `{metric, value, unit, condition}`。
+
+固定随机种子已抽取 10 篇试点论文，空白模板位于
+`eval/ground_truth_structured_trial/`。请只对照原论文填写模板中的两个列表，确认后将
+`needs_review` 改为 `false`。随后依次在 VS Code 运行：
+
+1. `B2-1：生成结构化试点标注模板（不花 API）`（模板已存在时不会覆盖）。
+2. `B2-2：结构化输出试点（10 篇，消耗 API）`（会向 DeepSeek 发送 10 篇论文）。
+3. `B2-3：结构化试点评测（不花 API）`。
+
+第 3 步会把旧 V2 文本输出和 B2 新输出放到**同一份结构化人工答案**、同一套
+partial-credit 规则下比较；同名同数值（允许 ±5%、单位一致）得 1.0，仅同名得 0.5，
+避免因为一句话拆成几条就全部失分。
+
+### B2 试点结论：未通过，不推广
+
+用户确认结构化答案后，B2 已对固定 10 篇论文真实调用 DeepSeek，**10 / 10 成功**，总计
+**44,576 Token**、零内容修正。随后用同一份结构化人工答案评测：实验条件 F1 为
+**31.57% → 29.76%**，主要结果 F1 为 **7.83% → 6.40%**，两字段平均 F1 为
+**19.70% → 18.08%**。因此 B2 没有通过试点门槛，不替换 M1～M8 的主 Schema 或默认抽取路径。
+
+逐篇复盘显示多篇 B2 输出为空列表，说明固定对象 Schema 解决不了“从长论文中找全证据”的
+召回问题。原始输出与对照报告见
+[`eval/predictions/b2-structured-pilot/predictions.json`](eval/predictions/b2-structured-pilot/predictions.json)
+和 [`eval/output/b2-structured-pilot/report.md`](eval/output/b2-structured-pilot/report.md)。
 
 ## 启动可视化界面
 
@@ -205,3 +269,23 @@ FastAPI 响应模型和评测脚本共同复用。
 - 不要把真实 API Key 写入 `.env.example`。
 - 本地 `.env` 已被 `.gitignore` 忽略。
 - 用户上传的论文、数据库和日志不会提交到 Git。
+
+## Final M9 Result (frozen 30-paper holdout)
+
+The project is complete through M9. On a frozen, independently verified set of
+30 optical-communication papers, the three-level fault-tolerant extractor
+improved structured-output availability from **27/30 (90.00%)** to
+**30/30 (100.00%)**. Across the eight automatically scored fields, the macro
+average improved from **45.79%** to **50.47%** (**+4.68 percentage points**).
+
+| Metric | No content-repair retry | Three-level fault tolerance | Change |
+| --- | ---: | ---: | ---: |
+| Successful extractions | 27/30 | 30/30 | +10.00pp |
+| Eight-field macro average | 45.79% | 50.47% | +4.68pp |
+| Author F1 | 82.72% | 89.81% | +7.08pp |
+| Experimental-condition F1 | 34.40% | 43.74% | +9.34pp |
+| Main-result F1 | 42.52% | 50.18% | +7.66pp |
+
+The final holdout must not be used for further prompt or rule tuning. See
+[`docs/PROJECT_SUMMARY_CN.md`](docs/PROJECT_SUMMARY_CN.md) for the full
+project summary, evaluation boundary, strengths and remaining limitations.

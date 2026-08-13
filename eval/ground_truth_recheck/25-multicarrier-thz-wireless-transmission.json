@@ -1,0 +1,15 @@
+{
+  "filename": "25-multicarrier-thz-wireless-transmission.pdf",
+  "needs_review": false,
+  "annotation_meta": {
+    "split": "agreement_recheck",
+    "reviewer": "independent_ai_reviewer",
+    "instruction": "Independent AI recheck from the paper only; original ground truth was not opened.",
+    "evidence_basis": "local PDF, pages 1 and 4-8"
+  },
+  "review": {
+    "method_name": "Single-sideband envelope detection with Kramers-Kronig SSBI mitigation for THz-over-fibre transmission",
+    "experimental_conditions": ["5 GBd 16-QAM THz-over-fibre transmission with a 10 km single-mode-fiber link", "250 GHz THz carrier and 0.3 m wireless distance using horn antennas", "Combined optical linewidths from 22 kHz to 905 kHz were evaluated", "HD-FEC threshold BER = 3.8 x 10^-3"],
+    "main_results": ["For total optical linewidths wider than 0.55 MHz, the single-sideband approach provided better sensitivity than baseband carrier recovery", "Without KK processing, meeting the FEC target required a 39% reduction in spectral density", "With the KK receiver, a 2.95 b/s/Hz information spectral density met the FEC target, only 15% below the upper limit"]
+  }
+}

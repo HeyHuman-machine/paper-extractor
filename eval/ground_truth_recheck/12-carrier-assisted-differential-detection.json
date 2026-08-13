@@ -1,0 +1,15 @@
+{
+  "filename": "12-carrier-assisted-differential-detection.pdf",
+  "needs_review": false,
+  "annotation_meta": {
+    "split": "agreement_recheck",
+    "reviewer": "independent_ai_reviewer",
+    "instruction": "Independent AI recheck from the paper only; original ground truth was not opened.",
+    "evidence_basis": "local PDF, pages 1-7"
+  },
+  "review": {
+    "method_name": "Carrier-assisted differential detection (CADD)",
+    "experimental_conditions": ["Numerical evaluation with 25-Gbaud 16-QAM OFDM signals", "CADD optical delay optimized between 50 ps and 60 ps with 5%-25% frequency gaps", "Four iterations were used for SSBI mitigation", "CADD and KK were compared at a 100 Gbit/s data rate"],
+    "main_results": ["CADD uses double-sideband modulation and approximately doubles electrical spectral efficiency relative to KK and SSBI iterative-cancellation receivers", "For a 10% frequency gap, CADD achieved about 28 dB OSNR sensitivity", "CADD operation at 25% frequency gap achieved about 26 dB OSNR sensitivity while trading spectral efficiency for sensitivity"]
+  }
+}

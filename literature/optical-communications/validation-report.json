@@ -1,0 +1,362 @@
+[
+  {
+    "group": "seed",
+    "file": "01-seed-triplet-ssb-single-pd.pdf",
+    "bytes": 3495456,
+    "pdf_signature": true,
+    "pages": 4,
+    "sha256": "00fd995a4b6ebe6e87c071b48d137a14ea5453c79604574443c01b2351341f7e",
+    "first_page": "Letter Vol. 48, No. 18 / 15 September 2023 / Optics Letters 4877 Direct detection system for independent triplet-sideband signals based on a single photodiode Dongyan Wu,1 Leilei Wang,1 Zheng Hu, 1 Yilin Chen, 1 Chenlei Lu,1 Tianrong Guo, 1 Gen Miao,1 Li Zhao,2 AND Jiangnan Xiao1,∗ 1University of Shanghai for Science a",
+    "error": ""
+  },
+  {
+    "group": "seed",
+    "file": "02-seed-triple-sideband-0.3thz.pdf",
+    "bytes": 3528194,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "51242780764bd1b99c5a338b4cd0d9fc29b5abc6368ab750fa5db3669c5fa3d1",
+    "first_page": "Research Article Vol. 31, No. 6 / 13 Mar 2023 / Optics Express 9395 Simplified independent triple-sideband signal generation and transmission scheme based on one I/Q modulator at 0.3-THz YE ZHOU ,1 JIANGNAN XIAO ,1,* LEILEI WANG ,1 YILIN CHEN ,1 DONGYAN WU,1 JUN MING ,1 ZHENG HU,1 LI ZHAO ,2 CHANGQING XIANG ,3 YIFEI LI",
+    "error": ""
+  },
+  {
+    "group": "seed",
+    "file": "03-seed-dual-ssb-lower-if-single-pd.pdf",
+    "bytes": 4876654,
+    "pdf_signature": true,
+    "pages": 4,
+    "sha256": "d6d30c5f8cec869982d5c6f0d7c0d1bb5641e70b3f0ff8403b02a8987d5dde2f",
+    "first_page": "Letter Vol. 47, No. 20 / 15 October 2022 / Optics Letters 5317 Independent dual-single sideband lower-IF RF receiver based on a single photodetector Ye Zhou, 1 Jun Ming, 1 Leilei Wang,1 Dongyan Wu,1 Li Zhao,2 AND Jiangnan Xiao1,∗ 1University of Shanghai for Science and T echnology , Shanghai 200093, China 2School of In",
+    "error": ""
+  },
+  {
+    "group": "seed",
+    "file": "04-seed-gs16qam-isb-kmeans.pdf",
+    "bytes": 4183733,
+    "pdf_signature": true,
+    "pages": 16,
+    "sha256": "042ed9aab555292e65174c697f602153eed8bb90fc1d01480eb0cf438e0cdec0",
+    "first_page": "Research Article Vol. 30, No. 22 / 24 Oct 2022 / Optics Express 39663 Synthesis of a GS-16QAM signal for a simplified optical ISB system and direct detection with the K-means clustering algorithm JUN MING ,1 JIANGNAN XIAO ,1,* DONGYAN WU,1 LEILEI WANG ,1 YE ZHOU ,1 AND LI ZHAO 2 1University of Shanghai for Science and ",
+    "error": ""
+  },
+  {
+    "group": "seed",
+    "file": "05-seed-quadruple-ssb-single-pd.pdf",
+    "bytes": 3074496,
+    "pdf_signature": true,
+    "pages": 10,
+    "sha256": "3d9f5913e1aab0bc67124ab5ae193796f377f3e2d5d8e0d2828e5567400d7511",
+    "first_page": "Research Article Vol. 31, No. 14 / 3 Jul 2023 / Optics Express 22405 Direct detection system based on a single photodiode receiving the independent quadruple-SSB signal LEILEI WANG ,1 JIANGNAN XIAO ,1,* YE ZHOU ,1 JUN MING ,1 DONGYAN WU,1 YILIN CHEN ,1 ZHENG HU,1 AND LI ZHAO 2 1University of Shanghai for Science and Te",
+    "error": ""
+  },
+  {
+    "group": "seed",
+    "file": "06-seed-ssbi-counteraction-dual-ssb.pdf",
+    "bytes": 4350697,
+    "pdf_signature": true,
+    "pages": 12,
+    "sha256": "d85bd2fdec547028224a420f084ecaf299b45f7f4550cf24b3cac49255088966",
+    "first_page": "Research Article Vol. 32, No. 23 / 4 Nov 2024 / Optics Express 41665 SSBI counteraction technology in a single photodetector-based direct detection system receiving an independent dual-single sideband signal ZHENG HU, J IANGNAN XIAO ,* YILIN CHEN , J IABAO ZHAO , F EIHAN LI, AND HANGZHI ZHU University of Shanghai for S",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "07-simplified-twin-ssb-direct-detection.pdf",
+    "bytes": 3600042,
+    "pdf_signature": true,
+    "pages": 10,
+    "sha256": "283d4306ca3b6f6786a678223a8258be57e3ac007f0adedd06e7ef137b0985f7",
+    "first_page": "Research Article Vol. 30, No. 1 / 3 Jan 2022 / Optics Express 619 Simplified twin-single-sideband direct detection system separating left and right sideband signals using a digital signal processing algorithm instead of optical bandpass filters YE ZHOU ,1 JIANGNAN XIAO ,1,* CHUANG ZHAO ,1 JIANGLI ZUO,1 JUN MING ,1 AND ",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "08-kramers-kronig-coherent-receiver.pdf",
+    "bytes": 1798208,
+    "pdf_signature": true,
+    "pages": 8,
+    "sha256": "de75ff1535f310107656efcaf5aa47b07612c94477c10a265f792b497967e6ac",
+    "first_page": "Kramers–Kronig coherent receiver ANTONIO MECOZZI,1,*C RISTIAN ANTONELLI,1 AND MARK SHTAIF2 1Department of Physical and Chemical Sciences, University of L ’Aquila, L’Aquila 67100, Italy 2Department of Physical Electronics, Tel Aviv University, Tel Aviv 69978, Israel *Corresponding author: antonio.mecozzi@univaq.it Recei",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "09-comparison-digital-ssbi-compensation.pdf",
+    "bytes": 1541741,
+    "pdf_signature": true,
+    "pages": 14,
+    "sha256": "fe09c1a3c1a12092442ede33014dc6c4046b59488549744ab05d639f13d5571f",
+    "first_page": "Comparison of digital signal -signal beat interference compensation techniques in direct -detection subcarrier modulation systems ZHE LI,* M. SEZER ERKILINC¸, LIDIA GALDINO, KAI SHI, BENN C. THOMSEN, POLINA BAYVEL, AND ROBERT I. KILLEY Optical Networks Group, Department of Electronic and Electrical Engineering, Univers",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "10-ssbi-mitigation-and-kk.pdf",
+    "bytes": 4688893,
+    "pdf_signature": true,
+    "pages": 7,
+    "sha256": "b5a836827119d796765c492c7020dce647a9e909caa9cf40caa14090d2b34ee8",
+    "first_page": "JOURNAL OF LIGHTW A VE TECHNOLOGY , VOL. 35, NO. 10, MA Y 15, 2017 1887 SSBI Mitigation and the Kramers–Kronig Scheme in Single-Sideband Direct-Detection Transmission With Receiver-Based Electronic Dispersion Compensation Zhe Li, Student Member , IEEE, M. Sezer Erkılınc¸, Member , IEEE, Kai Shi , Member , IEEE, Eric Si",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "11-chip-brillouin-carrier-recovery.pdf",
+    "bytes": 906315,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "2e1808e9fbbd692f96b8684ad75893cd0088eefaf857dd7453eda83fed4ef3e9",
+    "first_page": "Chip-based Brillouin processing for carrier recovery in coherent optical communications ELIAS GIACOUMIDIS ,1,2,*,# AMOL CHOUDHARY , 1,2,*,# ERIC MAGI,1,2 DAVID MARPAUNG ,1,2 KHU VU,3 PAN MA,3 DUK-YONG CHOI,3 STEVE MADDEN,3 BILL CORCORAN ,4 MARK PELUSI,1,2 AND BENJAMIN J. EGGLETON ,1,2* 1Institute of Photonics and Optic",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "12-carrier-assisted-differential-detection.pdf",
+    "bytes": 902882,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "3c2e92dcbfc292fede693e4332b20e7e977db0f96d18ea7faf9df726ba1b003a",
+    "first_page": "Shieh et al. Light: Science & Applications (2020) 9:18 Ofﬁcial journal of the CIOMP 2047-7538 https://doi.org/10.1038/s41377-020-0253-8 www.nature.com/lsa ARTICLE Open Access Carrier-assisted differential detection William Shieh1,C h u a n b o w e nS u n1 and Honglin Ji1 Abstract To overcome power fading induced by chr",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "13-enhanced-kk-single-sideband-receivers.pdf",
+    "bytes": 2132878,
+    "pdf_signature": true,
+    "pages": 10,
+    "sha256": "aff68c66ebb76614edeb4e8ee6756d4f60950550f5723d7074ec7ff55f9fbd93",
+    "first_page": "Enhanced Kramers-Kronig single-sideband receivers AJ Lowery, T Wang, B Corcoran Journal of Lightwave Technology 38 (12), 3229-3237, 2020 © 2020 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing th",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "14-kramers-kronig-pam-transceiver.pdf",
+    "bytes": 858309,
+    "pdf_signature": true,
+    "pages": 8,
+    "sha256": "bce800c5590548d8940d5fee9df19b48e71898f9d8a98fa6c2e838042cc5d425",
+    "first_page": "1 Kramers Kronig PAM transceiver and two-sided polarization-multiplexed Kramers Kronig transceiver Cristian Antonelli, Antonio Mecozzi, and Mark Shtaif Abstract—We propose two transceiver schemes based on Kramers Kronig (KK) detection. One targets low-cost high- throughput applications and uses PAM transmission in comb",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "15-multi-constraint-gerchberg-saxton.pdf",
+    "bytes": 974172,
+    "pdf_signature": true,
+    "pages": 12,
+    "sha256": "541fefbb41b14957d205eca78e65e33e73d58aeac93c2567f3c3cf03d9800896",
+    "first_page": "PRIFYSGOL BANGOR / B ANGOR UNIVERSITY Multi-Constraint Gerchberg-Saxton Iteration Algorithms for Linearizing IM/DD Transmission Systems Hu, Shaohua; Zhang, Jing; Tang, Jianming; Jin, Taowei; Jin, Wei; Liu, Qun; Zhong, Zhuqiang; Giddings, Roger; Hong, Yanhua; Xu, Bo; Yi, Xingwen; Qiu, Kun Optics Express DOI: 10.1364/OE.",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "16-integrated-dual-laser-terahertz-chip.pdf",
+    "bytes": 6915605,
+    "pdf_signature": true,
+    "pages": 8,
+    "sha256": "3c2401e697cb552f39de3d8c642b5e68b236b4a5da18765787c85315fba99ee0",
+    "first_page": "ARTICLE Integrated dual-laser photonic chip for high-purity carrier generation enabling ultrafast terahertz wireless communications Shi Jia 1,9 ✉, Mu-Chieh Lo 2,3,9, Lu Zhang 4,5,9, Oskars Ozolins 4,6,7, Aleksejs Udalcovs 6, Deming Kong 1, Xiaodan Pang 4 ✉, Robinson Guzman 2, Xianbin Yu 5, Shilin Xiao 8, Sergei Popov 4",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "17-performance-kk-medium-reach.pdf",
+    "bytes": 1230426,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "c8184cb4a08b5ace0675dd88b7ab62fa1ff5cd30b36554e35b1db772270d482e",
+    "first_page": "warwick.ac.uk/lib-publications Manuscript version: Author’s Accepted Manuscript The version presented in WRAP is the author’s accepted manuscript and may differ from the published version or Version of Record. Persistent WRAP URL: http://wrap.warwick.ac.uk/177939 How to cite: Please refer to published version for the m",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "18-analog-low-latency-kk-receiver.pdf",
+    "bytes": 1495855,
+    "pdf_signature": true,
+    "pages": 8,
+    "sha256": "af571c161abb2b228cb2f25f6eff585af3f939679d3b2dd02b1e849df139f5ca",
+    "first_page": "Analog Low-Latency Kramers-Kronig optical Single-Sideband Receiver A Lowery, T Feleppa Journal of Lightwave Technology 39 (10), 3130 - 3136, 2021 © 2021 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republ",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "19-stokes-vector-kk-480gbps.pdf",
+    "bytes": 1281207,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "da6f847e86d76fd48f838e1e5acaa8c9dc4ffa075858ece84c03fd7d282e185e",
+    "first_page": "Single wavelength 480 Gb/s direct detection over 80km SSMF e nabled by Stokes Vector Kramers Kronig t ransceiver Thang M. Hoang1, Mohammed Y.S. Sowailem1, Qunbi Zhuge1,2,*, Zhenping Xing, Mohamed Morsy-Osman1,3, Eslam El-Fiky1, Sujie Fan1, Meng Xiang1, and David V. Plant1 1Photonics System Group, Electrical and Compute",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "20-compact-metasurface-self-coherent-receiver.pdf",
+    "bytes": 1720528,
+    "pdf_signature": true,
+    "pages": 12,
+    "sha256": "b085152b9d5598edee2034512802290c33ac99ecff4f2ef7a63e453e9331eede",
+    "first_page": "Compact and s calable polarimetric s elf- coherent receiver using dielectric metasurface GO SOMA,1,4 YOSHIRO NOMOTO,2 TOSHIMASA UMEZAWA,3 YUKI YOSHIDA,3 YOSHIAKI NAKANO,1 AND TAKUO TANEMURA1,5 1School of Engineering, The University of Tokyo, 7-3-1 Hongo, Bunkyo-ku, Tokyo, Japan 2Central Research Laboratory, Hamamatsu P",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "21-ssbi-free-phase-diverse-direct-detection.pdf",
+    "bytes": 1079075,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "e2b2c3c02eb9304270ee91a3ae32463696e003647941fa5bdc5a52083ada0e19",
+    "first_page": "SSBI-Free Direct Detection via Phase Diverse of Residual Optical Carrier Enabled by Finite Extinction Ratio IQ Modulator for Datacenter Interconnections XIAOBO ZENG,1, * LIANGCAI CHEN,1 PAN LIU,1 AND RUONAN DENG2 1Hunan Province Key Laboratory of Credible Intelligent Navigation and Positioning, Key Laboratory of Intell",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "22-kk-digitally-added-carrier.pdf",
+    "bytes": 1625871,
+    "pdf_signature": true,
+    "pages": 8,
+    "sha256": "2dce1cff5cae5abac1e00fdb926770ac29d0ed5ca6530a473395ab6e3a291196",
+    "first_page": "Kramers-Kronig Receiver with Digitally Added Carrier Combined with Digital Resolution Enhancer Citation for published version (APA): van den Hout, M., van der Heide, S., & Okonkwo, C. M. (2022). Kramers-Kronig Receiver with Digitally Added Carrier Combined with Digital Resolution Enhancer. Journal of Lightwave Technolo",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "23-pdm-simplified-twin-ssb.pdf",
+    "bytes": 1892233,
+    "pdf_signature": true,
+    "pages": 11,
+    "sha256": "505a09c9c0b5d08975555e1697f59295b9d38adeb6470fa32108fc1d4f2361b7",
+    "first_page": "Citation: Zhou, Y.; Ming, J.; Wang, L.; Wu, D.; Zhao, L.; Xiao, J. Optical Polarization Division Multiplexing Transmission System Based on Simpliﬁed Twin-SSB Modulation. Sensors 2022, 22, 7700. https:// doi.org/10.3390/s22207700 Academic Editor: Luis Velasco Received: 18 August 2022 Accepted: 8 October 2022 Published: ",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "24-terahertz-photonics-wireless-communications.pdf",
+    "bytes": 4994131,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "2cc5ddb0310aed28df38d45b2e613063fbfee0690ae2cbb33e37ef586db57f1e",
+    "first_page": "JOURNAL OF LIGHTW A VE TECHNOLOGY , VOL. 33, NO. 3, FEBRUARY 1, 2015 579 TeraHertz Photonics for Wireless Communications Alwyn J. Seeds, Fellow, IEEE, Haymen Shams, Member, IEEE, Martyn J. Fice, Member, IEEE, and Cyril C. Renaud, Member, IEEE (Invited Tutorial) Abstract—Optical ﬁbre transmission has enabled greatly in-",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "25-multicarrier-thz-wireless-transmission.pdf",
+    "bytes": 2333222,
+    "pdf_signature": true,
+    "pages": 8,
+    "sha256": "abf000ac8064ba9eb4897b3aade857c6e2a88d0b9aa45004c0337b1cc73d514b",
+    "first_page": "JOURNAL OF LIGHTW A VE TECHNOLOGY , VOL. 36, NO. 19, OCTOBER 1, 2018 4527 Single Sideband Signals for Phase Noise Mitigation in Wireless THz-Over-Fibre Systems Luis Gonzalez-Guerrero , Haymen Shams , Member , IEEE, Irshaad Fatadin, Senior Member , IEEE, Martyn J. Fice , Member , IEEE, Mira Naftaly , Alwyn J. Seeds , Fe",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "26-generalized-kk-coherent-thz.pdf",
+    "bytes": 3272756,
+    "pdf_signature": true,
+    "pages": 16,
+    "sha256": "acb5fba6763b8e26f0e4129695855e35062e5b10793bd3c4c89c1448c80e83e7",
+    "first_page": "1 Generalized Kramers-Kronig Receiver for Coherent THz Communications T. Harter1,2*, C. Füllner1*, J. N. Kemal1, S. Ummethala1,2, J. L. Steinmann3, M. Brosi3, J. L. Hesler4, E. Bründermann3, A.-S. Müller3, W. Freude1, S. Randel1**, C. Koos1,2** 1Institute of Photonics and Quantum Electronics (IPQ), Karlsruhe Institute ",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "27-review-self-coherent-optical-transceivers.pdf",
+    "bytes": 12558735,
+    "pdf_signature": true,
+    "pages": 85,
+    "sha256": "1be0aef345caa54c3a828fb5935f5d37ffe2b0fe996affb603aec28cfd83d715",
+    "first_page": "applied sciences Review A Review of Self-Coherent Optical Transceivers: Fundamental Issues, Recent Advances, and Research Directions Isiaka Alimi 1,* , Romil Patel 2 , Nuno Silva 1 , Chuanbowen Sun 3, Honglin Ji 3, William Shieh 3 , Armando Pinto 2 and Nelson Muga 1 /gid00030/gid00035/gid00032/gid00030/gid00038/gid0000",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "28-dsp-enabled-optical-detection-pon.pdf",
+    "bytes": 1035284,
+    "pdf_signature": true,
+    "pages": 14,
+    "sha256": "11199772c94a7a18de9e961ff5ad591a20a87f885726a15ccb10a5885b2c9b3a",
+    "first_page": "> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE -CLICK HERE TO EDIT) < 1 Abstract— Some of the different aspects of the DSP enabled receivers in access networks will be addressed in this work . A revision of the main topics which may impact DSP design will be discussed through application examples. Mo",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "29-ssb-dd-nscm-vs-ofdm.pdf",
+    "bytes": 842394,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "d52116844eb6976dffdefca79c551417454154d6b16c23b048610296bac32ed4",
+    "first_page": "2038 JOURNAL OF LIGHTW A VE TECHNOLOGY , VOL. 33, NO. 10, MAY 15, 2015 Performance Comparison of Single-Sideband Direct Detection Nyquist-Subcarrier Modulation and OFDM M. Sezer Erkılınc¸, Student Member, IEEE, Stephan Pachnicke, Senior Member, IEEE, Helmut Griesser, Member, IEEE, Benn C. Thomsen, Member, IEEE, Polina ",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "30-review-recent-coherent-optical-communications.pdf",
+    "bytes": 916044,
+    "pdf_signature": true,
+    "pages": 15,
+    "sha256": "05f8348dcb754e2c6c079719264d6ea88351fa172894df4738b6e1ff04cba0af",
+    "first_page": "Citation: Karar, A.S.; Falou, A.R.E.; Barakat, J.M.H.; Gürkan, Z.N.; Zhong, K. Recent Advances in Coherent Optical Communications for Short-Reach: Phase Retrieval Methods. Photonics 2023, 10, 308. https://doi.org/10.3390/ photonics10030308 Received: 31 January 2023 Revised: 25 February 2023 Accepted: 9 March 2023 Publi",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "31-accurate-field-reconstruction-low-cspr.pdf",
+    "bytes": 3662178,
+    "pdf_signature": true,
+    "pages": 7,
+    "sha256": "555bab8518d2d030c8eaddd7df5891f4d6ff82d2b881ee006004f3e92164dfe3",
+    "first_page": "JOURNAL OF LIGHTW A VE TECHNOLOGY , VOL. 38, NO. 2, JANUARY 15, 2020 485 Accurate Field Reconstruction at Low CSPR Condition Based on a Modiﬁed KK Receiver With Direct Detection Shaohua An , Qingming Zhu , Jingchi Li , and Yikai Su , Senior Member , IEEE, Member , OSA (Top-Scored Paper) Abstract—We introduce and experi",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "32-dsm-carrierless-phase-retrieval.pdf",
+    "bytes": 4205866,
+    "pdf_signature": true,
+    "pages": 11,
+    "sha256": "ec2254ad714a2689bf9eb5b252eb8b5df6cbde89c9408617aa2e77a72b3f4e52",
+    "first_page": "Digital subcarrier multiplexing-enabled carrier-free phase-retrieval receiver Yunhe Ma, Meng Xiang, * Wenzhuo Cheng, Ruitao Wu, Peijian Zhou, Gai Zhou, Jilong Li, Jianping Li, Songnian Fu, and Yuwen Qin Guangdong University of Technology, Department of Information Engineering, Guangdong Provincial Key Laboratory of Pho",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "33-multi-twin-ssb-long-reach-pon.pdf",
+    "bytes": 15913496,
+    "pdf_signature": true,
+    "pages": 10,
+    "sha256": "1d74d4f8e9dee82081458b13c90ebbfb84f28168ccf257e60faa4d3d4f4a2fc5",
+    "first_page": "applied sciences Article Multi-Twin-SSB Modulation with Direct Detection Based on Kramers–Kronig Scheme for Long-Reach PON Downstream Xiang Gao , Yuancheng Cai, Bo Xu *, Xiaoling Zhang and Kun Qiu School of Information and Communication Engineering, Key Laboratory of Optical Fiber Sensing and Communications (Education ",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "34-filter-assisted-self-coherent-detection.pdf",
+    "bytes": 3242688,
+    "pdf_signature": true,
+    "pages": 9,
+    "sha256": "2b54e1aee012925925204497715e032695ad0b4ade858ba5cfed5be4b96fbc2e",
+    "first_page": "Received: 14 March 2025 Revised: 28 March 2025 Accepted: 28 March 2025 Published: 3 April 2025 Citation: Huo, J.; Han, L.; Qin, P .; Tao, J.; Bai, H.; Zhang, X. Filter-Assisted Self-Coherent Detection Field Recovery Scheme for Dual-Polarization Complex-Valued Double-Sideband Signals. Photonics 2025, 12, 343. https://do",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "35-neural-equalization-imdd-review.pdf",
+    "bytes": 5470686,
+    "pdf_signature": true,
+    "pages": 24,
+    "sha256": "92e39c4b0afc9cd98501f425a2ebab3a34733bb9e61c719874cc9bed91d5cdc1",
+    "first_page": "Citation: Xu, Z.; Ji, T.; Wu, Q.; Lu, W.; Ji, H.; Yang, Y.; Qiao, G.; Tang, J.; Cheng, C.; Liu, L.; et al. Advanced Neural Network-Based Equalization in Intensity-Modulated Direct- Detection Optical Systems: Current Status and Future Trends. Photonics 2024, 11, 702. https://doi.org/ 10.3390/photonics11080702 Received: ",
+    "error": ""
+  },
+  {
+    "group": "evaluation",
+    "file": "36-zero-guard-band-dual-ssb-pam4.pdf",
+    "bytes": 3319244,
+    "pdf_signature": true,
+    "pages": 4,
+    "sha256": "08ab504b117a80cf3b37f0dd95d72e9598b3a4096aa596c2e91b428ff691a5d2",
+    "first_page": "6178 Vol. 45, No. 22 / 15 November 2020 / Optics Letters Letter Zero-guard band dual-SSB PAM4 signal transmission with joint equalization scheme J/i.sc/n.sc/g.sc/c.sc/h.sc/i.sc L/i.sc, S/h.sc/a.sc/o.sc/h.sc/u.sc/a.sc A/n.sc,AND Y/i.sc/k.sc/a.sc/i.sc S/u.sc* State Key Laboratory of Advanced Optical Communication Systems",
+    "error": ""
+  }
+]

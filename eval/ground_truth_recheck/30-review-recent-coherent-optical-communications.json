@@ -1,0 +1,15 @@
+{
+  "filename": "30-review-recent-coherent-optical-communications.pdf",
+  "needs_review": false,
+  "annotation_meta": {
+    "split": "agreement_recheck",
+    "reviewer": "independent_ai_reviewer",
+    "instruction": "Independent AI recheck from the paper only; original ground truth was not opened.",
+    "evidence_basis": "local PDF, abstract and article classification"
+  },
+  "review": {
+    "method_name": null,
+    "experimental_conditions": [],
+    "main_results": []
+  }
+}

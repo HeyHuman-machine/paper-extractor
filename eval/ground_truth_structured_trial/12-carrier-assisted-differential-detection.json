@@ -1,0 +1,25 @@
+{
+  "filename": "12-carrier-assisted-differential-detection.pdf",
+  "needs_review": false,
+  "annotation_meta": {"split": "b2_structured_pilot", "review_status": "ai_draft_pending_human_review", "reviewed_by": "Codex AI draft", "reviewed_at": "2026-08-13", "note": "由既有冻结文字标注拆分为结构化草稿，并回查论文；请人工复核后再改为 false。"},
+  "record": {
+    "experimental_conditions": [
+      {"name": "study_type", "value": "numerical simulation", "unit": null},
+      {"name": "modulation", "value": "16QAM OFDM", "unit": null},
+      {"name": "baud_rate", "value": "25", "unit": "Gbaud"},
+      {"name": "data_rate", "value": "100", "unit": "Gbit/s"},
+      {"name": "receiver_sampling_rate", "value": "50", "unit": "Gsample/s"},
+      {"name": "frequency_gap", "value": "10", "unit": "%"},
+      {"name": "CSPR", "value": "8", "unit": "dB"},
+      {"name": "SSBI_iterations", "value": "4", "unit": null}
+    ],
+    "main_results": [
+      {"metric": "electrical_spectral_efficiency_gain", "value": "1.8", "unit": "factor", "condition": "compared with KK and SSBI iterative-cancellation receivers"},
+      {"metric": "OSNR_sensitivity", "value": "28", "unit": "dB", "condition": "BER 1e-3; 10% frequency gap"},
+      {"metric": "SSBI_suppression", "value": "6", "unit": "dB", "condition": "transfer-function magnitude above 1"},
+      {"metric": "average_SNR", "value": "19.7", "unit": "dB", "condition": "after fourth iteration; 10% frequency gap"},
+      {"metric": "ADC_bandwidth", "value": "16.0", "unit": "GHz", "condition": "per channel; 200-Gb/s comparison"}
+    ]
+  },
+  "evidence": {}
+}

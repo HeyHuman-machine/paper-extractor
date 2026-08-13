@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import sys
+import json
 from pathlib import Path
 from typing import Any
 
@@ -313,18 +314,73 @@ def failures_page() -> None:
 
 
 def evaluation_page() -> None:
-    page_header("评测", "M9 将在这里展示字段准确率和容错前后对比。")
-    st.info("评测模块将在 M9 接入。当前不展示虚构准确率，避免把演示数据当成真实结果。")
-    st.markdown(
-        """
-        ### M9 会提供
+    page_header("准确率评测", "用人工标准答案比较无重试与三级容错，不让模型给自己打分。")
+    from eval.metrics import AUTO_FIELDS, FIELD_LABELS, load_ground_truth
 
-        - 20 篇人工标注论文的正确答案
-        - 标题、年份、作者、实验条件等字段的准确率 / F1
-        - 无重试与三级容错两轮结果对比
-        - 可写入简历的真实评测报告和柱状图
-        """
+    labels = load_ground_truth(PROJECT_ROOT / "eval" / "ground_truth" / "evaluation")
+    label_col, pending_col, target_col = st.columns(3)
+    label_col.metric("已确认标注", len(labels.records))
+    pending_col.metric("待人工确认", len(labels.pending_files))
+    target_col.metric("正式目标", "30 篇盲测")
+    progress_value = min(len(labels.records) / 30, 1.0)
+    st.progress(progress_value, text=f"独立盲测标准答案进度：{len(labels.records)}/30")
+
+    report_path = PROJECT_ROOT / "eval" / "output" / "report.json"
+    if not report_path.exists():
+        st.info("还没有真实评测报告。先完成标注，再运行两轮预测和评分。")
+        st.markdown(
+            """
+            ### 完成 M9 的三步
+
+            1. 用 `M9-1：生成标注草稿` 从现有 M6 JSON 创建草稿，逐篇对照论文修正。
+            2. 30 篇独立盲测答案确认后运行 `M9-2：生成两轮预测`，这一步会调用 DeepSeek 两轮。
+            3. 运行 `M9-3：生成评测报告`，本页刷新后显示真实数字。
+
+            `problem`、`limitations`、`summary` 是自由文本，不参与自动总分，留给人工抽查。
+            """
+        )
+        if labels.invalid_files:
+            st.error(f"无效标注文件：{', '.join(labels.invalid_files)}")
+        return
+
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        st.error(f"评测报告无法读取：{exc}")
+        return
+    if report.get("is_partial"):
+        st.warning("这是少于 30 篇独立盲测论文的调试报告，数字不能写进简历。")
+
+    baseline = report["baseline"]
+    robust = report["with_retries"]
+    before_col, after_col, delta_col = st.columns(3)
+    before_col.metric("无重试自动总分", f"{baseline['overall_auto_score']:.1%}")
+    after_col.metric("三级容错自动总分", f"{robust['overall_auto_score']:.1%}")
+    delta_col.metric("绝对提升", f"{report['overall_delta'] * 100:+.2f} 个百分点")
+
+    chart_rows = [
+        {
+            "字段": FIELD_LABELS[field],
+            "无内容修正重试": baseline["fields"][field]["score"],
+            "三级容错": robust["fields"][field]["score"],
+        }
+        for field in AUTO_FIELDS
+    ]
+    st.markdown("### 八个客观字段")
+    st.bar_chart(
+        pd.DataFrame(chart_rows).set_index("字段"),
+        color=["#8FA8E8", "#40B99A"],
+        y_label="准确率 / F1",
     )
+    st.caption("年份、文档类型用准确率；名称字段用模糊匹配准确率；列表字段用宏平均 F1。")
+    report_md = PROJECT_ROOT / "eval" / "output" / "report.md"
+    if report_md.exists():
+        st.download_button(
+            "下载完整评测报告",
+            report_md.read_bytes(),
+            file_name="M9评测报告.md",
+            mime="text/markdown",
+        )
 
 
 def main() -> None:

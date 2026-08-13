@@ -1,0 +1,15 @@
+{
+  "filename": "13-enhanced-kk-single-sideband-receivers.pdf",
+  "needs_review": false,
+  "annotation_meta": {
+    "split": "agreement_recheck",
+    "reviewer": "independent_ai_reviewer",
+    "instruction": "Independent AI recheck from the paper only; original ground truth was not opened.",
+    "evidence_basis": "local PDF, pages 1 and 5-9"
+  },
+  "review": {
+    "method_name": "Clipping-enhanced Kramers-Kronig receiver with logarithmic main-path processing",
+    "experimental_conditions": ["Numerical simulations of Kramers-Kronig SSB reception with 16-QAM signals", "Back-to-back and 100 km standard single-mode-fiber cases", "Carrier-to-signal power ratios of 6-9 dB and thermal noise of 60 pA/sqrt(Hz)", "Receiver sensitivity evaluated at a BER target of 2.3 x 10^-4 / KP4 FEC"],
+    "main_results": ["Combining logarithmic processing and clipping obtained low error rates with 2 dB less carrier power and 0.25 dB better sensitivity than conventional processing", "At 100 km, reported logarithmic and clipping receiver sensitivity was -5.76 dBm versus -5.58 dBm for conventional KK", "The improved processing potentially supports analogue implementation using semiconductor diodes"]
+  }
+}

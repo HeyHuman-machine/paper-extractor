@@ -1,0 +1,15 @@
+{
+  "filename": "09-comparison-digital-ssbi-compensation.pdf",
+  "needs_review": false,
+  "annotation_meta": {
+    "split": "agreement_recheck",
+    "reviewer": "independent_ai_reviewer",
+    "instruction": "Independent AI recheck from the paper only; original ground truth was not opened.",
+    "evidence_basis": "local PDF, pages 1 and 7-12"
+  },
+  "review": {
+    "method_name": "Digital SSBI compensation schemes: single-stage, iterative and two-stage linearization filters, and SSBI estimation and cancellation",
+    "experimental_conditions": ["7 x 25 Gb/s WDM SSB 16-QAM Nyquist-SCM direct-detection system", "10 GHz WDM channel spacing and 3.43 GHz subcarrier frequency", "80 km SSMF recirculating-loop spans; 240 km and 480 km transmission", "BER over 2^18 bits; HD-FEC threshold BER = 3.8 x 10^-3"],
+    "main_results": ["At HD-FEC back-to-back, two-stage linearization required 18.9 dB OSNR, a 6.4 dB gain over uncompensated reception", "At 240 km, minimum BER decreased from 2.7 x 10^-3 without compensation to 1.0 x 10^-4 using SSBI estimation and cancellation", "At 480 km, the two-stage linearization filter achieved the best BER of 2.6 x 10^-3"]
+  }
+}

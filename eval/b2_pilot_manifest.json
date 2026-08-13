@@ -1,0 +1,20 @@
+{
+  "purpose": "B2 结构化输出试点：固定 10 篇，先验证切分粒度问题能否改善。",
+  "selection": {
+    "source": "eval/ground_truth/evaluation",
+    "method": "sorted filenames + random.Random(20260813).sample(..., 10)",
+    "frozen_at": "2026-08-13"
+  },
+  "files": [
+    "12-carrier-assisted-differential-detection.pdf",
+    "15-multi-constraint-gerchberg-saxton.pdf",
+    "24-terahertz-photonics-wireless-communications.pdf",
+    "29-ssb-dd-nscm-vs-ofdm.pdf",
+    "21-ssbi-free-phase-diverse-direct-detection.pdf",
+    "08-kramers-kronig-coherent-receiver.pdf",
+    "11-chip-brillouin-carrier-recovery.pdf",
+    "13-enhanced-kk-single-sideband-receivers.pdf",
+    "10-ssbi-mitigation-and-kk.pdf",
+    "27-review-self-coherent-optical-transceivers.pdf"
+  ]
+}
