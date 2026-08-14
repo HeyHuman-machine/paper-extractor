@@ -45,6 +45,10 @@ def test_agreement_uses_same_low_field_rules(tmp_path) -> None:
         ),
         encoding="utf-8",
     )
+    (recheck / "_template.json").write_text(
+        json.dumps({"filename": "example.pdf", "needs_review": True, "review": {}}),
+        encoding="utf-8",
+    )
 
     report = compute_agreement(truth, recheck)
 
@@ -52,3 +56,4 @@ def test_agreement_uses_same_low_field_rules(tmp_path) -> None:
     assert report["fields"]["method_name"]["score"] == 1.0
     assert report["fields"]["experimental_conditions"]["f1"] == 1.0
     assert report["fields"]["main_results"]["f1"] == 1.0
+    assert report["invalid_rechecks"] == []

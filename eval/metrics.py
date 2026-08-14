@@ -61,6 +61,81 @@ def fuzzy_match(expected: Any, actual: Any, threshold: float = 0.9) -> bool:
     return SequenceMatcher(None, expected_text, actual_text).ratio() >= threshold
 
 
+_METHOD_ACRONYM_ONLY_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9-]{1,}$")
+_METHOD_INITIALISM_STOP_WORDS = frozenset({"a", "an", "and", "by", "for", "of", "on", "the", "to", "with"})
+
+
+def method_name_metric_v2_match(expected: Any, actual: Any) -> bool:
+    """最终留出集方法名称的受限 v2 规则。
+
+    此规则只修正已观察到的度量缺陷：F01 的参考答案
+    ``Dual-tap optical-digital feedforward equalization (DT-ODFE)`` 与模型
+    输出 ``DT-ODFE`` 在括号缩写上完全一致，却被旧 0.90 fuzzy 判为错误。
+    不改变 0.90 阈值，也不加入同义词、语义相似度或宽松字符串规则。
+    """
+
+    matched, _ = method_name_metric_v2_match_detail(expected, actual)
+    return matched
+
+
+def method_name_metric_v2_match_detail(expected: Any, actual: Any) -> tuple[bool, str]:
+    """返回 v2 方法名称判定和唯一、可审计的命中理由。"""
+
+    expected_text = str(expected or "").strip()
+    actual_text = str(actual or "").strip()
+    if not expected_text and not actual_text:
+        # 旧 fuzzy_match 已表现为此行为；显式保留以固定空值对齐口径。
+        return True, "both_empty"
+    if not expected_text or not actual_text:
+        return False, "one_empty"
+    if fuzzy_match(expected_text, actual_text, threshold=0.9):
+        return True, "baseline_fuzzy_0.90"
+
+    if _matches_parenthetical_acronym(expected_text, actual_text):
+        return True, "parenthetical_acronym"
+    if _matches_initialism(expected_text, actual_text):
+        return True, "initialism"
+    return False, "no_match"
+
+
+def _matches_parenthetical_acronym(left: str, right: str) -> bool:
+    """只接受一侧括号内的纯缩写与另一侧完全相同。"""
+
+    for expanded, candidate in ((left, right), (right, left)):
+        candidate_text = candidate.strip()
+        if not _METHOD_ACRONYM_ONLY_PATTERN.fullmatch(candidate_text):
+            continue
+        candidate_normalized = normalize_text(candidate_text)
+        for parenthetical in _METHOD_PARENTHETICAL_PATTERN.findall(expanded):
+            abbreviation = parenthetical.strip()
+            if (
+                _METHOD_ACRONYM_ONLY_PATTERN.fullmatch(abbreviation)
+                and normalize_text(abbreviation) == candidate_normalized
+            ):
+                return True
+    return False
+
+
+def _matches_initialism(left: str, right: str) -> bool:
+    """只接受“纯缩写 ↔ 另一侧首字母缩写”，忽略规定虚词。"""
+
+    for acronym, expanded in ((left, right), (right, left)):
+        if not _METHOD_ACRONYM_ONLY_PATTERN.fullmatch(acronym.strip()):
+            continue
+        if normalize_text(acronym) == _initialism(expanded):
+            return True
+    return False
+
+
+def _initialism(value: str) -> str:
+    tokens = re.findall(r"[A-Za-z]+", unicodedata.normalize("NFKC", value))
+    return "".join(
+        token[0].casefold()
+        for token in tokens
+        if token.casefold() not in _METHOD_INITIALISM_STOP_WORDS
+    )
+
+
 _METHOD_SUFFIX_PATTERN = re.compile(
     r"(?:algorithm|scheme|method|architecture|receiver|transceiver|"
     r"processing|算法|方案|方法|架构|接收机|收发机|处理)\\s*$",

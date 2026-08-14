@@ -10,6 +10,23 @@ Streamlit 和可量化评测。
 目标是把几十篇论文的对比整理从数小时压缩到几分钟，同时保留失败诊断、重试
 记录和准确率评测，不把 LLM 输出当作天然正确的数据。
 
+## 系统架构
+
+```mermaid
+flowchart LR
+    U["PDF / DOCX 论文"] --> M1["M1 文档解析"]
+    M1 --> M3["M3 三级容错抽取"]
+    M2["M2 DeepSeek 客户端\nJSON Mode + thinking disabled"] --> M3
+    M3 --> M4["M4 批量调度"]
+    M4 --> M5["M5 SQLite\n任务 / 结果 / 失败诊断"]
+    M5 --> M6["M6 Excel / JSON 导出"]
+    M5 --> M7["M7 FastAPI"]
+    M7 --> M8["M8 Streamlit"]
+    M3 --> M9["M9 冻结集评测\n字段级 P/R/F1"]
+```
+
+> GitHub 原生支持 Mermaid 渲染；完整模块说明见 [`docs/architecture.md`](docs/architecture.md)。
+
 ## 当前进度
 
 - [x] M0：环境与项目骨架
@@ -23,11 +40,8 @@ Streamlit 和可量化评测。
 - [x] M8：Streamlit
 - [x] M9：准确率评测（30 篇独立盲测已完成两轮真实运行与报告）
 
-当前已完成 M0～M9。30 篇独立盲测已冻结人工答案并完成真实运行；V2 与 V3 的 Prompt
-优化均先在 6 篇开发集验证，避免用冻结盲测集反复调参。当前正在进行阶段 A 评测诊断：
-只测量既有 V2 预测与标注的差异，不修改 Prompt 或抽取逻辑。B1 已完成方法名称评分
-规则的平行校准：旧规则 69.77%，候选规则 72.27%；这是修正已暴露数据集上的表述误判，
-不是模型准确率提升。
+当前已完成 M0～M9。最终 `final-holdout-v1` 的 30 篇独立论文已冻结人工答案并完成真实运行；
+所有 Prompt 优化只在 6 篇开发集完成，最终留出集不再用于调 Prompt 或抽取规则。
 
 ## M9 准确率评测
 
@@ -270,22 +284,35 @@ FastAPI 响应模型和评测脚本共同复用。
 - 本地 `.env` 已被 `.gitignore` 忽略。
 - 用户上传的论文、数据库和日志不会提交到 Git。
 
-## Final M9 Result (frozen 30-paper holdout)
+## 最终 M9 评测摘要（冻结 30 篇留出集）
 
-The project is complete through M9. On a frozen, independently verified set of
-30 optical-communication papers, the three-level fault-tolerant extractor
-improved structured-output availability from **27/30 (90.00%)** to
-**30/30 (100.00%)**. Across the eight automatically scored fields, the macro
-average improved from **45.79%** to **50.47%** (**+4.68 percentage points**).
+初始并发对照组为 **27/30** 成功、8 字段宏平均 **45.79%**；三级容错组为
+**30/30** 成功、宏平均 **50.47%**。为排除并发模式差异，又以相同的串行逐篇检查点
+模式复现无内容修正组，得到 **29/30** 成功、宏平均 **50.15%**。
 
-| Metric | No content-repair retry | Three-level fault tolerance | Change |
+| 指标 | 原并发无修正 | 串行无修正复现 | 三级容错 |
 | --- | ---: | ---: | ---: |
-| Successful extractions | 27/30 | 30/30 | +10.00pp |
-| Eight-field macro average | 45.79% | 50.47% | +4.68pp |
-| Author F1 | 82.72% | 89.81% | +7.08pp |
-| Experimental-condition F1 | 34.40% | 43.74% | +9.34pp |
-| Main-result F1 | 42.52% | 50.18% | +7.66pp |
+| 成功抽取 | 27/30 | 29/30 | 30/30 |
+| 8 字段宏平均 | 45.79% | 50.15% | 50.47% |
+| 作者 F1 | 82.72% | 89.87% | 89.81% |
+| 实验条件 F1 | 34.40% | 41.29% | 43.74% |
+| 主要结果 F1 | 42.52% | 46.74% | 50.18% |
 
-The final holdout must not be used for further prompt or rule tuning. See
-[`docs/PROJECT_SUMMARY_CN.md`](docs/PROJECT_SUMMARY_CN.md) for the full
-project summary, evaluation boundary, strengths and remaining limitations.
+串行复现表明：F26 在串行无修正时仍失败、三级容错成功，可明确归因于内容修正机制；
+F21、F28 在串行无修正时成功，因此原始 27→30 提升中的这两篇不能排除运行间差异。
+方法名称另有一份受限的度量 v2 复算：只修正“全称（缩写）↔缩写”的明确误判，分数
+从 3.33% 到 6.67%；该规则是在看过留出集后设计，保留 v1 数字且必须在新数据集验证。
+
+详见：
+
+- [`eval/output/final-holdout-v1/version-convention-analysis.md`](eval/output/final-holdout-v1/version-convention-analysis.md)
+- [`eval/output/final-holdout-v1/atomic-fact-coverage.md`](eval/output/final-holdout-v1/atomic-fact-coverage.md)
+- [`eval/output/final-holdout-v1/method-name-metric-v2.md`](eval/output/final-holdout-v1/method-name-metric-v2.md)
+- [`eval/output/final-holdout-v1/ablation-rerun.md`](eval/output/final-holdout-v1/ablation-rerun.md)
+
+## 已知局限
+
+- 最终留出集已经用于度量缺陷诊断；后续任何规则改动都必须使用新的独立数据集验证。
+- 方法名称的严格字符串规则仍会错过许多“核心方法相同但限定成分不同”的表达，不能把 v2 复算当成泛化提升。
+- 原子事实指标只识别数值、单位、类别词与指标词；实验条件中 **13/30** 的人工标签没有可识别原子事实，定性事实会被低估。
+- 项目只面向电子版 PDF / DOCX；扫描件未接入 OCR，单机部署也未引入 Docker、RAG 或多用户权限系统。

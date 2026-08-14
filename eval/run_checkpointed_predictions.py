@@ -20,11 +20,16 @@ from app.parser import DocumentParserError, parse_document
 from eval.run_predictions import write_predictions
 
 
-def _load_checkpoint(path: Path, settings: Settings, repair_retries: int) -> dict[str, Any]:
+def _load_checkpoint(
+    path: Path,
+    settings: Settings,
+    repair_retries: int,
+    label: str = "三级容错（逐篇检查点）",
+) -> dict[str, Any]:
     if not path.exists():
         return {
             "evaluation_config": {
-                "label": "三级容错（逐篇检查点）",
+                "label": label,
                 "model": settings.llm_model,
                 "max_repair_retries": repair_retries,
                 "transport_retries": settings.llm_max_retries,
@@ -54,14 +59,15 @@ def _write_checkpoint(path: Path, payload: dict[str, Any], total_files: int, dur
 
 
 def run_checkpointed_predictions(
-    files: list[Path], output_path: Path | str, *, repair_retries: int, settings: Settings | None = None
+    files: list[Path], output_path: Path | str, *, repair_retries: int,
+    settings: Settings | None = None, label: str = "三级容错（逐篇检查点）",
 ) -> dict[str, Any]:
     """Extract files sequentially and atomically save after each completed item."""
 
     active_settings = settings or get_settings()
     target = Path(output_path)
     target.parent.mkdir(parents=True, exist_ok=True)
-    payload = _load_checkpoint(target, active_settings, repair_retries)
+    payload = _load_checkpoint(target, active_settings, repair_retries, label)
     completed = {
         str(item.get("filename"))
         for item in [*payload["results"], *payload["failures"]]

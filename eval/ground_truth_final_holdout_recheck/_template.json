@@ -1,0 +1,14 @@
+{
+  "filename": "F01-dual-tap-optical-digital-ffe.pdf",
+  "needs_review": true,
+  "review": {
+    "method_name": null,
+    "experimental_conditions": [],
+    "main_results": []
+  },
+  "annotation_meta": {
+    "reviewer": "",
+    "reviewed_at": "YYYY-MM-DD",
+    "instructions": "独立依据原始 PDF 填写；不要查看原标注、模型输出或评测报告。完成后三个字段均确认无误，才将 needs_review 改为 false。"
+  }
+}

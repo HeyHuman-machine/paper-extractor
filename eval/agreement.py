@@ -24,6 +24,8 @@ def load_rechecks(directory: Path | str) -> tuple[dict[str, dict[str, Any]], lis
     records: dict[str, dict[str, Any]] = {}
     invalid: list[str] = []
     for path in sorted(Path(directory).glob("*.json")):
+        if path.name.startswith("_"):
+            continue
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
             filename = str(payload["filename"]).strip()
@@ -137,8 +139,13 @@ def main() -> None:
     parser.add_argument("--ground-truth", type=Path, default=Path("eval/ground_truth/evaluation"))
     parser.add_argument("--recheck-dir", type=Path, default=Path("eval/ground_truth_recheck"))
     parser.add_argument("--output", type=Path, default=Path("eval/output/diagnosis/agreement.json"))
+    parser.add_argument("--expected-sample-count", type=int, default=8)
     args = parser.parse_args()
     report = compute_agreement(args.ground_truth, args.recheck_dir)
+    if report["sample_count"] != args.expected_sample_count:
+        raise ValueError(
+            f"独立复核应有 {args.expected_sample_count} 篇共同论文，实际为 {report['sample_count']} 篇"
+        )
     write_agreement(report, args.output)
     print(f"A1 报告已保存：{args.output.resolve()}")
 

@@ -1,4 +1,9 @@
-from eval.metrics import calibrated_method_match, calibrated_method_match_detail, evaluate_records
+from eval.metrics import (
+    calibrated_method_match,
+    calibrated_method_match_detail,
+    evaluate_records,
+    method_name_metric_v2_match,
+)
 
 
 def test_calibrated_method_match_ignores_parenthetical_explanation_and_suffix() -> None:
@@ -54,3 +59,14 @@ def test_evaluate_records_accepts_parallel_method_matcher() -> None:
     calibrated = evaluate_records(truth, prediction, method_name_matcher=calibrated_method_match)
     assert baseline["fields"]["method_name"]["score"] == 0.0
     assert calibrated["fields"]["method_name"]["score"] == 1.0
+
+
+def test_final_method_metric_v2_only_accepts_protocol_acronyms_and_empty_values() -> None:
+    assert method_name_metric_v2_match(
+        "Dual-tap optical-digital feedforward equalization (DT-ODFE)", "DT-ODFE"
+    )
+    assert method_name_metric_v2_match(
+        "Filter-Assisted Self-Coherent Detection", "FASCD"
+    )
+    assert method_name_metric_v2_match(None, "")
+    assert not method_name_metric_v2_match("Probabilistic amplitude shaping", "PAS receiver")
