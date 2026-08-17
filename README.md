@@ -123,6 +123,38 @@ partial-credit 规则下比较；同名同数值（允许 ±5%、单位一致）
 
 打开 <http://127.0.0.1:8000/docs>，可直接上传多个 PDF / DOCX、查询任务和下载 Excel / JSON。接口流程说明见 [`docs/notes/M7_FastAPI接口.md`](docs/notes/M7_FastAPI接口.md)。
 
+## Docker 启动（推荐用于环境复现）
+
+Docker Desktop 启动后，在项目根目录的 VS Code 终端执行：
+
+```powershell
+docker compose up --build
+```
+
+这条命令会构建同一份项目镜像，并启动两个容器：
+
+- `api`：FastAPI 后端，访问 <http://127.0.0.1:8000/docs>
+- `ui`：Streamlit 界面，访问 <http://127.0.0.1:8501>
+
+`data`、`storage` 和 `logs` 会挂载到宿主机项目目录，因此容器删除后，论文、SQLite
+数据库、导出文件和日志仍然保留。容器内的 Streamlit 通过 `http://api:8000` 访问后端，
+不需要把 `API_BASE_URL` 改成宿主机地址。
+
+常用操作：
+
+```powershell
+# 后台启动
+docker compose up -d --build
+# 查看运行状态
+docker compose ps
+# 查看日志
+docker compose logs -f api
+# 停止并移除容器（不会删除挂载的数据）
+docker compose down
+```
+
+> `.env` 只在启动时作为容器环境变量传入，不会复制进镜像，也不应提交到 GitHub。
+
 ## 日常使用：自动处理输入文件夹
 
 只需在 `.env` 中统一配置输入与输出目录：
